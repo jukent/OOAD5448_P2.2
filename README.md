@@ -1,2 +1,4 @@
-# OOAD5448
-Placeholder name to be updated with project info and specs
+# OOAD5448: Raiders of the Lost Arctangent
+by David Chaparro and Julia Kent
+
+Java version: 17.0.1
