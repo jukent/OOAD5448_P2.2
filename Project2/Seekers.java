@@ -45,7 +45,7 @@ public class Seekers extends Creatures{
             ArrayList<String>exits = current_room.getExits();
 
             // List of nearby rooms
-            // Convert Strings to Rooms
+            // Convert Room-Name-Strings to Rooms
             Dungeon dungeon = new Dungeon();
             ArrayList<Room> exit_rooms = new ArrayList<>();
             for (int i=0; i < exits.size(); i++) {
@@ -57,6 +57,10 @@ public class Seekers extends Creatures{
             ArrayList<Room> character_locations = new ArrayList<Room>(); //characters.getCharacterLocations();
 
             // Compare lists -- this could be a utility fx
+            // Worried about the equality of objects here
+            // Hoping that code will recognize identical Room objects 
+            // but I'm not clear on if we are generating new Room objects with identical attributes anywhere
+            // If so we can compare room string names `.equal()` as an easy fix
             ArrayList<Room> room_intersections = new ArrayList<>();
             for (Room r: exit_rooms) {
                 if (character_locations.contains(r)) {
