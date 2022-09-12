@@ -10,6 +10,9 @@ public class Blinkers extends Creatures{
     getStartingRoom();
     }
 
+    /**
+     * Randomly generate starting room for blinker from any room on 4th level
+     */
     private void getStartingRoom() {
         //Blinkers start anywhere on the 4th level
 
@@ -32,14 +35,23 @@ public class Blinkers extends Creatures{
     }
 
 
-    // Only move if character not in room
+    /* (non-Javadoc)
+     * @see Creatures#move()
+     * 
+     * Replace abstract creature movement with Blinker movement
+     * Checks if a character is in the room, if so stays
+     * If not, blinks to another random room in the dungeon
+     */
+    @Override
     public void move(){
         Room current_room = this.getLocation();
 
         boolean check = checkCharacterInRoom(current_room);
         if (check == true) {
+            // Only move if character not in room
             this.setLocation(this.getLocation());
         } else {
+            // Blink
             // Get map of possible rooms
             Dungeon dungeon = new Dungeon();
             Hashtable<String, Room> possible_room_map = dungeon.getMap();
