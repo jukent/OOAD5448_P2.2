@@ -1,0 +1,20 @@
+class Parent:
+    def __init__(self):
+        self.a = 1
+
+    def test(self):
+        print("HI")
+        print(self.a)
+
+class child(Parent):
+    def __init__(self):
+        self.b = 2
+
+    def test(self):
+        print("Meow")
+        Parent.test(self)
+        Parent.a = 3
+        Parent.test(self)
+
+a = child()
+a.test()
