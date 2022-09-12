@@ -75,7 +75,7 @@ public class Orbiters extends Creatures{
         } else if (direction.equals("clockwise")) {
             // Orbit Clockwise
             // I can't think of a better way to do this than manually.
-            if (row ==0 && column ==0) {
+            if (row == 0 && column == 0) {
                 String next_room_name = new String("(" + level + "-0-1)");
                 new_room = dungeon.getRoom(next_room_name);
             } else if (row == 0 && column == 1) {
@@ -105,7 +105,7 @@ public class Orbiters extends Creatures{
             }
         } else {
             // Orbit Counterclockwise;
-            if (row ==0 && column ==0) {
+            if (row == 0 && column == 0) {
                 String next_room_name = new String("(" + level + "-1-0)");
                 new_room = dungeon.getRoom(next_room_name);
             } else if (row == 1 && column == 0) {
