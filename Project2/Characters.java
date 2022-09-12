@@ -75,6 +75,9 @@ public abstract class Characters {
     public int getTreasure(){
         return TreasureCount;
     }
+    public void gainTreasure(){
+        this.TreasureCount++;
+    }
 
     // Need to flesh out this function sill
     // But we want an array list of the locations of the characters
