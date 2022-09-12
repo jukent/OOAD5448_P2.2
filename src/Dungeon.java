@@ -1,5 +1,3 @@
-package src;
-
 import java.util.Hashtable;
 
 public class Dungeon {
