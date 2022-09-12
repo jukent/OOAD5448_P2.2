@@ -4,7 +4,7 @@ public abstract class Creatures {
     //room location stored Room object accessed by name (level-row-column)
     //Level Range [0-4], Column range [1-3], Row Range [1-3]
     Dungeon dungeon = new Dungeon();
-    protected Room Location = dungeon.getRoom("1-1-1");
+    private Room Location = dungeon.getRoom("1-1-1");
 
     protected int HP = 1;
     protected int MoveCount = 1;
