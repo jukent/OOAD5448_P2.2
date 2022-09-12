@@ -123,4 +123,22 @@ public class Room {
     public Integer getLevel() {
         return level;
     }
+
+    /**
+     * @return row: Integer
+     * 
+     * Let other classess easily access a room's row
+     */
+    public Integer getRow() {
+        return row;
+    }
+
+    /**
+     * @return column: Integer
+     * 
+     * Let other classess easily access a room's column
+     */
+    public Integer getColumn() {
+        return column;
+    }
 }
