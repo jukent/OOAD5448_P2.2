@@ -37,16 +37,12 @@ public abstract class Characters {
     public void move() {
         // Random movement
         Room current_room = this.getLocation();
-        Hashtable<String, String> exits = current_room.getExits();
-
-        // Use exits.keys() if we want to access cardinal directions
-        // Such as for printing "exited to the North" - not needed yet
-        ArrayList<String> exit_names = new ArrayList<String>(exits.values());
+        ArrayList<String>exits = current_room.getExits();
 
         Random random = new Random();
         int random_index = random.nextInt(exits.size());
 
-        String new_room_name = exit_names.get(random_index);
+        String new_room_name = exits.get(random_index);
         Room new_room = dungeon.getRoom(new_room_name);
         
         this.setLocation(new_room);
