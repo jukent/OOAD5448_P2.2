@@ -1,5 +1,6 @@
 public class Runners extends Characters{
-    Runners(){
+    Runners(int A){
+        super.ID = A;
         super.MoveCount = 2;
     }
     }
