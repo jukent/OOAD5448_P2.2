@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public abstract class Creatures {
     public int ID = 0;
 
@@ -34,5 +36,16 @@ public abstract class Creatures {
 
     public int getHealth(){
         return HP;
+    }
+
+    // Help me rename this function to something better
+    // Also using a dummy arraylist that should be populated with character locations from a method outside this class (with access to all characters)
+    public boolean checkCharacterInRoom(Room room) {
+        ArrayList<Room> character_locations = new ArrayList<Room>(); //characters.getCharacterLocations();
+        if (character_locations.contains(room)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

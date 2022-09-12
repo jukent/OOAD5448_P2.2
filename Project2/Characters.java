@@ -36,8 +36,8 @@ public abstract class Characters {
     //Template function for specific move directions
     public void move() {
         // Random movement
-        Room room = this.getLocation();
-        Hashtable<String, String> exits = room.getExits();
+        Room current_room = this.getLocation();
+        Hashtable<String, String> exits = current_room.getExits();
 
         // Use exits.keys() if we want to access cardinal directions
         // Such as for printing "exited to the North" - not needed yet
@@ -76,6 +76,13 @@ public abstract class Characters {
         return TreasureCount;
     }
 
+    // Need to flesh out this function sill
+    // But we want an array list of the locations of the characters
+    // Does this belong in an interface? Somewhere that knows of all 4 characters.
+    public ArrayList<Room> getCharacterLocations() {
+        ArrayList<Room> character_locations = new ArrayList<Room>();
+        return character_locations;
+    }
 }
 
 
