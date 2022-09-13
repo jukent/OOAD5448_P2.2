@@ -4,8 +4,10 @@ import java.util.List;
 public class GameEngine {
 
     //Array list that contains all characters and Creatures
-    ArrayList<Characters> CharacterList= new ArrayList<Characters>();
-    ArrayList<Creatures> CreatureList= new ArrayList<Creatures>();
+    public ArrayList<Characters> CharacterList= new ArrayList<Characters>();
+    public ArrayList<Creatures> CreatureList= new ArrayList<Creatures>();
+
+    protected Dungeon dungeon = new Dungeon();
 
     //Game variables that track win condition
     private int TreasureCount = 0;
@@ -40,15 +42,6 @@ public class GameEngine {
         ID++;
         CreatureList.add(new Blinkers(ID));
         ID++;
-
-        for(Characters I: CharacterList){
-            I.setLocation(0,1,1);
-        }
-        for(Creatures I: CreatureList){
-            I.setLocation(DiceRolls.rollDice(3),DiceRolls.rollDice(3),DiceRolls.rollDice(3));//Set location of creatures to be random
-        }
-
-
     }
     
     //Run the game by simulating processing each turn which includes

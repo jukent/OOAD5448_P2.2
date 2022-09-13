@@ -5,13 +5,13 @@ import java.util.Random;
 public class Seekers extends Creatures{
     Seekers(int A){
         super.ID = A;
-        getStartingRoom();
+        setStartingRoom();
     }
 
     /**
      * Randomly generate starting room for orbiters from any exterior room on any level
      */
-    private void getStartingRoom() {
+    private void setStartingRoom() {
         //Blinkers start anywhere on the 4th level
 
         // Get map of possible rooms
@@ -36,8 +36,8 @@ public class Seekers extends Creatures{
     public void move(){
         Room current_room = this.getLocation();
 
-        boolean check = checkCharacterInRoom(current_room);
-        if (check == true) {
+        ArrayList<Characters> characters_in_room = getCharactersInRoom(current_room);
+        if (characters_in_room.size() > 0) {
             // Only move if character not in room
             this.setLocation(this.getLocation());
         } else {

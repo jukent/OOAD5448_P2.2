@@ -8,14 +8,14 @@ public class Orbiters extends Creatures{
 
     Orbiters(int A){
         super.ID = A;
-        getStartingRoom(); // Set starting room
-        this.direction = getDirection(); // Clockwise or Counterclockwise
+        setStartingRoom(); // Set starting room
+        this.direction = setDirection(); // Clockwise or Counterclockwise
     }
 
     /**
      * Randomly generate starting room for orbiters from any exterior room on any level
      */
-    private void getStartingRoom() {
+    private void setStartingRoom() {
         //Blinkers start anywhere on the 4th level
 
         // Get map of possible rooms
@@ -37,7 +37,7 @@ public class Orbiters extends Creatures{
     }
 
     // Can move clockwise or counterclockwise
-    private String getDirection() {
+    private String setDirection() {
         ArrayList<String> directions = new ArrayList<String>();
         directions.add("clockwise");
         directions.add("counterclockwise");
@@ -67,9 +67,9 @@ public class Orbiters extends Creatures{
 
         Dungeon dungeon = new Dungeon();
 
-        boolean check = checkCharacterInRoom(current_room);
         Room new_room = this.getLocation(); // Initialize a room
-        if (check == true) {
+        ArrayList<Characters> characters_in_room = getCharactersInRoom(current_room);
+        if (characters_in_room.size() > 0) {
             // Only move if character not in room
             new_room = new_room; // No effect
         } else if (direction.equals("clockwise")) {

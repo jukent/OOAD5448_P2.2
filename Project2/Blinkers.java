@@ -7,13 +7,13 @@ public class Blinkers extends Creatures{
         super.ID = A;
 
     //Blinkers start anywhere on the 4th level
-    getStartingRoom();
+    setStartingRoom();
     }
 
     /**
      * Randomly generate starting room for blinker from any room on 4th level
      */
-    private void getStartingRoom() {
+    private void setStartingRoom() {
         //Blinkers start anywhere on the 4th level
 
         // Get list of possible starting rooms
@@ -21,8 +21,8 @@ public class Blinkers extends Creatures{
 
         for (int r = 0; r < 2; ++r) { // row
             for (int c = 0; c < 2; ++c) { // column
-                Room room = new Room(4, r, c);   
-                starting_rooms.add(room);   
+                String room_name = new String("(4-" + r + "-" + c + ")"); 
+                starting_rooms.add(dungeon.getRoom(room_name));   
             }
         }
                 
@@ -46,14 +46,13 @@ public class Blinkers extends Creatures{
     public void move(){
         Room current_room = this.getLocation();
 
-        boolean check = checkCharacterInRoom(current_room);
-        if (check == true) {
+        ArrayList<Characters> characters_in_room = getCharactersInRoom(current_room);
+        if (characters_in_room.size() > 0) {
             // Only move if character not in room
             this.setLocation(this.getLocation());
         } else {
             // Blink
             // Get map of possible rooms
-            Dungeon dungeon = new Dungeon();
             Hashtable<String, Room> possible_room_map = dungeon.getMap();
             possible_room_map.remove("0-1-1"); // remove entrace room
             possible_room_map.remove(current_room.getName()); // remove current room
