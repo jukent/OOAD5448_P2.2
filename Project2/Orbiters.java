@@ -68,11 +68,7 @@ public class Orbiters extends Creatures{
         Dungeon dungeon = new Dungeon();
 
         Room new_room = this.getLocation(); // Initialize a room
-        ArrayList<Characters> characters_in_room = getCharactersInRoom(current_room);
-        if (characters_in_room.size() > 0) {
-            // Only move if character not in room
-            new_room = new_room; // No effect
-        } else if (direction.equals("clockwise")) {
+        if (direction.equals("clockwise")) {
             // Orbit Clockwise
             // I can't think of a better way to do this than manually.
             if (row == 0 && column == 0) {

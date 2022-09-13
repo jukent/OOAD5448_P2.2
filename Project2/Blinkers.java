@@ -45,28 +45,21 @@ public class Blinkers extends Creatures{
     @Override
     public void move(){
         Room current_room = this.getLocation();
+        // Blink
+        // Get map of possible rooms
+        Hashtable<String, Room> possible_room_map = dungeon.getMap();
+        possible_room_map.remove("0-1-1"); // remove entrace room
+        possible_room_map.remove(current_room.getName()); // remove current room
 
-        ArrayList<Characters> characters_in_room = getCharactersInRoom(current_room);
-        if (characters_in_room.size() > 0) {
-            // Only move if character not in room
-            this.setLocation(this.getLocation());
-        } else {
-            // Blink
-            // Get map of possible rooms
-            Hashtable<String, Room> possible_room_map = dungeon.getMap();
-            possible_room_map.remove("0-1-1"); // remove entrace room
-            possible_room_map.remove(current_room.getName()); // remove current room
+        // Randomly select one of the rooms
+        ArrayList<Room> possible_rooms = new ArrayList<Room>(possible_room_map.values());
 
-            // Randomly select one of the rooms
-            ArrayList<Room> possible_rooms = new ArrayList<Room>(possible_room_map.values());
+        Random random = new Random();
+        int random_index = random.nextInt(possible_rooms.size());
 
-            Random random = new Random();
-            int random_index = random.nextInt(possible_rooms.size());
-
-            Room new_room = possible_rooms.get(random_index);
+        Room new_room = possible_rooms.get(random_index);
             
-            // Move there
-            this.setLocation(new_room);
-        }
+        // Move there
+        this.setLocation(new_room);
     }
 }

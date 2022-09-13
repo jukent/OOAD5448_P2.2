@@ -1,13 +1,8 @@
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Random;
 
 public abstract class Characters {
     public int ID = 0;
-
-    // creatures are all aware of where characters are
-    // so they can know if they're in the same room
-    ArrayList<Creatures> CreatureList;
 
     //room location stored Room object accessed by name (level-row-column)
     //Level Range [0-4], Column range [1-3], Row Range [1-3]
@@ -77,17 +72,6 @@ public abstract class Characters {
     }
     public void gainTreasure(){
         this.TreasureCount++;
-    }
-
-    public ArrayList<Creatures> getCreaturesInRoom(Room room) {
-        ArrayList<Creatures> creatures_in_room = new ArrayList<>();
-        for (Creatures c:CreatureList) {
-            Room creature_location = c.getLocation();
-            if (creature_location == room) {
-                creatures_in_room.add(c);
-            } 
-        }
-        return creatures_in_room;  
     }
 }
 
