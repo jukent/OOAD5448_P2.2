@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Random;
 
 public abstract class Characters {
@@ -7,7 +6,7 @@ public abstract class Characters {
 
     //room location stored Room object accessed by name (level-row-column)
     //Level Range [0-4], Column range [1-3], Row Range [1-3]
-    Dungeon dungeon = new Dungeon();
+    Dungeon dungeon;
     protected Room Location = dungeon.getRoom("0-1-1");
 
     protected int HP = 3;
@@ -73,14 +72,6 @@ public abstract class Characters {
     }
     public void gainTreasure(){
         this.TreasureCount++;
-    }
-
-    // Need to flesh out this function sill
-    // But we want an array list of the locations of the characters
-    // Does this belong in an interface? Somewhere that knows of all 4 characters.
-    public ArrayList<Room> getCharacterLocations() {
-        ArrayList<Room> character_locations = new ArrayList<Room>();
-        return character_locations;
     }
 }
 

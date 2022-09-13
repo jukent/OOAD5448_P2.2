@@ -1,11 +1,12 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class GameEngine {
 
     //Array list that contains all characters and Creatures
-    ArrayList<Characters> CharacterList= new ArrayList<Characters>();
+    public ArrayList<Characters> CharacterList= new ArrayList<Characters>();
     ArrayList<Creatures> CreatureList= new ArrayList<Creatures>();
+
+    protected Dungeon dungeon = new Dungeon();
 
     //Game variables that track win condition
     private int TreasureCount = 0;
@@ -40,15 +41,6 @@ public class GameEngine {
         ID++;
         CreatureList.add(new Blinkers(ID));
         ID++;
-
-        for(Characters I: CharacterList){
-            I.setLocation(0,1,1);
-        }
-        for(Creatures I: CreatureList){
-            I.setLocation(DiceRolls.rollDice(3),DiceRolls.rollDice(3),DiceRolls.rollDice(3));//Set location of creatures to be random
-        }
-
-
     }
     
     //Run the game by simulating processing each turn which includes
@@ -104,6 +96,30 @@ public class GameEngine {
         }
     }
     
+
+    private ArrayList<Creatures> getCreaturesInRoom(Room room) {
+        ArrayList<Creatures> creatures_in_room = new ArrayList<>();
+        for (Creatures c:CreatureList) {
+            Room creature_location = c.getLocation();
+            if (creature_location == room) {
+                creatures_in_room.add(c);
+            } 
+        }
+        return creatures_in_room;  
+    }
+
+    // This one is public because Seekers are capable of knowing 
+    private ArrayList<Characters> getCharactersInRoom(Room room) {
+        ArrayList<Characters> characters_in_room = new ArrayList<>();
+        for (Characters c:CharacterList) {
+            Room character_location = c.getLocation();
+            if (character_location == room) {
+                characters_in_room.add(c);
+            } 
+        }
+        return characters_in_room;  
+    }
+
     //Processes the decision making for one character. 
     //if a creature is in the room, it automatically fights
     //if no other creature is in the room, the character randomly
@@ -111,9 +127,11 @@ public class GameEngine {
     //to profile is specified in move()
     public  void process1Character(Characters A){
         //Processes character actions
+        Room current_room = A.getLocation();
+        ArrayList<Creatures> creatures_in_room = getCreaturesInRoom(current_room);
         //Will include a character.move to process movement
         for(int i = 0; i<A.MoveCount;i++){
-            if(){//if someone is in the room
+            if(creatures_in_room.size() > 0) {//if someone is in the room
 
                 continue;
             }
@@ -134,7 +152,10 @@ public class GameEngine {
     //if no other character is in the room, the moves according to
     //its profile specified in move()
     public void process1Creature(Creatures A){
-        if(){//Need to check if someone is in the room
+
+        Room current_room = A.getLocation();
+        ArrayList<Characters> characters_in_room = getCharactersInRoom(current_room);
+        if(characters_in_room.size() > 0){//Need to check if someone is in the room
 
 
         }
@@ -183,10 +204,4 @@ public class GameEngine {
         else{EndCondition = true;}
 
     }
-
-
-
-
-
-
 }
