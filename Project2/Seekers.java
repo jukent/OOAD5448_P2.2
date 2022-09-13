@@ -8,6 +8,7 @@ public class Seekers extends Creatures{
     Seekers(int A){
         super.ID = A;
         setStartingRoom();
+        name = "Seeker";
     }
 
     /**
