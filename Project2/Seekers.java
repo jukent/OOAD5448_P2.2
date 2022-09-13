@@ -13,7 +13,7 @@ public class Seekers extends Creatures{
     /**
      * Randomly generate starting room for orbiters from any exterior room on any level
      */
-    private void setStartingRoom() {
+    protected void setStartingRoom() {
         //Blinkers start anywhere on the 4th level
 
         // Get map of possible rooms

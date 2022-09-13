@@ -35,4 +35,6 @@ public abstract class Creatures {
     public int getHealth(){
         return HP;
     }
+
+    protected void setStartingRoom(){}
 }
