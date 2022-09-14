@@ -201,8 +201,16 @@ public class GameEngine {
 
         //Get Room information and characters in the room
         Room current_room = A.getLocation();
-        //setCharactersInRoom(current_room);
+        setCharactersInRoom(current_room);
         ArrayList<Characters> characters_in_room = current_room.getCharactersInRoom();
+
+
+        // Find characters in nearby rooms (for Seekers sake)
+        ArrayList<String>exits = current_room.getExits();
+        for (String x: exits) {
+            Room exit_room = dungeon.getRoom(x);
+            setCharactersInRoom(exit_room);
+        }
         
         //Process decision making for creatures
         if(characters_in_room.size() > 0){
@@ -219,7 +227,7 @@ public class GameEngine {
             setCreaturesInRoom(new_room); // Tell Room that Creature is there
             
             // Check for characters in new room
-            //setCharactersInRoom(new_room);
+            setCharactersInRoom(new_room);
             ArrayList<Characters> characters_in_new_room = current_room.getCharactersInRoom();
 
             // If characters in new room, fight
