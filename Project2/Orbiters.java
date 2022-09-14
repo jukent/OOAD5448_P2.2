@@ -8,6 +8,7 @@ public class Orbiters extends Creatures{
 
     Orbiters(int A){
         super.ID = A;
+        name = "Orbiter";
         setStartingRoom(); // Set starting room
         this.direction = setDirection(); // Clockwise or Counterclockwise
     }

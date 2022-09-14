@@ -5,9 +5,10 @@ import java.util.Random;
 public class Blinkers extends Creatures{
     Blinkers(int A){
         super.ID = A;
+        name = "Blinker";
 
-    //Blinkers start anywhere on the 4th level
-    setStartingRoom();
+        //Blinkers start anywhere on the 4th level
+        setStartingRoom();
     }
 
     /**

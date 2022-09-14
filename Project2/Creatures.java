@@ -6,6 +6,8 @@ public abstract class Creatures {
     Dungeon dungeon;
     private Room Location = dungeon.getRoom("1-1-1");
 
+    String name = new String("Creature");
+
     protected int HP = 1;
     protected int MoveCount = 1;
 
@@ -36,5 +38,11 @@ public abstract class Creatures {
         return HP;
     }
 
+
     protected void setStartingRoom(){}
+
+    public String getName() {
+        return name;
+    }
+
 }

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+import java.util.Collection;
 
 public class GameEngine {
 
@@ -122,6 +123,9 @@ public class GameEngine {
                 TimeUnit.SECONDS.sleep(1);}
             else{break;}
         }
+
+        printDungeon();
+        printCharacterStats();
     }
     
     //Function to get creatures from a particular room
@@ -135,6 +139,7 @@ public class GameEngine {
         }
         return creatures_in_room;  
     }
+
 
     // This one is public because Seekers are capable of knowing 
     public ArrayList<Characters> getCharactersInRoom(Room room) {
@@ -252,6 +257,72 @@ public class GameEngine {
 
     }
 
+
+    private String getOccupancyString(Room room){
+        ArrayList<Characters> characters_in_room = getCharactersInRoom(room);
+        String char_string = new String();
+        for (Characters c:characters_in_room) {
+            char_string += c.getName();
+            char_string += " ";
+        }
+
+        ArrayList<Creatures> creatures_in_room = getCreaturesInRoom(room);
+        String creature_string = new String();
+        for (Creatures c:creatures_in_room) {
+            creature_string += c.getName();
+            creature_string += " ";
+        }
+
+        String occupancy_string = new String(room.getName() + ": " + char_string + " : " + creature_string);
+        return occupancy_string;
+    }
+
+
+    private void printRowString (Integer level, Integer row) {
+        ArrayList<Room> row_rooms = new ArrayList<Room>();
+        row_rooms.add(dungeon.getRoom(level + "-" + row + "-0"));
+        row_rooms.add(dungeon.getRoom(level + "-" + row + "-1"));
+        row_rooms.add(dungeon.getRoom(level + "-" + row + "-2"));
+        String row_string = new String();
+        for (Room r:row_rooms) {
+            row_string += getOccupancyString(r);
+            row_string += "    ";
+        }
+        System.out.println(row_string);
+    }
+
+
+    private void printLevel (Integer level) {
+        System.out.println("Level " + level);
+        for (int r = 0; r < 2; ++r) {
+            printRowString(level, r);
+        }
+    }
+
+
+    private void printDungeon() {
+        // Level 0 
+        System.out.println("Level 0");
+        Room starting_room = dungeon.getRoom("0-1-1");
+        String occupancy_string = getOccupancyString(starting_room);
+        System.out.println(occupancy_string);
+
+        // Levels 1, 2, 3, 4
+        for (int l = 1; l < 4; ++l) {
+            printLevel(l);
+        }
+    }
+
+    private void printCharacterStats() {
+        for (Characters c:CharacterList) {
+            String name = c.getName();
+            Integer g = c.getTreasure();
+            Integer hp = c.getHealth();
+
+            String char_stats = new String(name + " - " + g + " Treasure(s) - " + hp + " Damage");
+            System.out.println(char_stats);
+        }
+    }
 }
 
 
