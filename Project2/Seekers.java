@@ -5,7 +5,9 @@ import java.util.Random;
 public class Seekers extends Creatures{
 
     ArrayList<Characters> CharacterList; // Seekers get to know where characters are
-    Seekers(int A){
+    Seekers(int A,Dungeon map){
+        this.dungeon = map;
+        this.Location = dungeon.getRoom("(1-1-1)");
         super.ID = A;
         setStartingRoom();
         name = "Seeker";
@@ -18,8 +20,7 @@ public class Seekers extends Creatures{
         //Blinkers start anywhere on the 4th level
 
         // Get map of possible rooms
-        Dungeon dungeon = new Dungeon();
-        Hashtable<String, Room> possible_room_map = dungeon.getMap();
+        Hashtable<String, Room> possible_room_map = this.dungeon.getMap();
         possible_room_map.remove("0-1-1"); // remove entrace room
                 
         // Randomly select one of the rooms

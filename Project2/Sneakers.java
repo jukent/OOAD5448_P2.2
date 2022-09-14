@@ -1,5 +1,7 @@
 public class Sneakers extends Characters{
-    Sneakers(int A){
+    Sneakers(int A,Dungeon map){
+        this.dungeon = map;
+        this.Location = dungeon.getRoom("(0-1-1)");
         super.ID = A;
         name = "Sneaker";
     }

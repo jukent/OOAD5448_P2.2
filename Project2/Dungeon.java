@@ -31,17 +31,17 @@ public class Dungeon {
 
         //int num_levels = 4;
 
-        for (int l = 0; l < num_levels; ++l) {     
+        for (int l = 0; l <= num_levels; ++l) {     
             if (l == 0) {
                 // On level 0, there is only one room
                 Room room = new Room(l, 1, 1);
                 map.put(room.getName(), room);
             } else {
                 // On all other levels, there are 3x3 rooms
-                for (int r = 0; r < 2; ++r) { // row
-                    for (int c = 0; c < 2; ++c) { // column
+                for (int r = 0; r <= 2; ++r) { // row
+                    for (int c = 0; c <= 2; ++c) { // column
                         Room room = new Room(l, r, c);       
-                        map.put(room.getName(), room);        
+                        map.put(room.getName(), room);      
                     }
                 }
             }
