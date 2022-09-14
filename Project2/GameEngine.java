@@ -8,6 +8,7 @@ public class GameEngine {
     ArrayList<Creatures> CreatureList= new ArrayList<Creatures>();
 
     protected Dungeon dungeon = new Dungeon();
+    Printer printer = new Printer(dungeon);
 
     //Game variables that track win condition
     private int TreasureCount = 0;
@@ -18,6 +19,7 @@ public class GameEngine {
     private boolean EndCondition = true;
     private Scanner A = new java.util.Scanner(System.in);
 
+
     //Constructor to initialize board.
     public GameEngine(){
         populateEntities();
@@ -26,6 +28,7 @@ public class GameEngine {
         A.nextLine();
         
     }
+
 
     //Populate CharacterList and CreatureList with characters
     private void populateEntities(){
@@ -56,9 +59,10 @@ public class GameEngine {
         setOccupancy();
     }
     
+
     //Run the game by simulating processing each turn which includes
     //characters and creatures. Ends if the end condition is completed
-    public  void runGame(){
+    public void runGame(){
         checkWinCondition();
         while(EndCondition){
             RoundCounter++;
@@ -67,6 +71,7 @@ public class GameEngine {
         A.close();
     }
     
+
     //Input a character and creature, and deducts health if 
     //a dice roll is larger than the other. If a character rolls
     // a -1, fight is skipped
@@ -98,6 +103,7 @@ public class GameEngine {
         else{System.out.println(" Fight Skipped");}
     }
     
+
     //Performs the character action of searching for treasure.
     //Adds to the characters treasure count
     private static void simulateTreasure(Characters A){
@@ -110,6 +116,7 @@ public class GameEngine {
         System.out.println("fail :(");}
     }
     
+
     //Processes the turns for each character and for each creature
     private void processTurn(){
         for(Characters I: CharacterList){
@@ -118,7 +125,7 @@ public class GameEngine {
                 System.out.flush();
                 showGameStatus();
                 setOccupancy();
-                printDungeon();
+                printer.printDungeon();
                 printCharacterStats();
                 process1Character(I);//Process character
                 checkWinCondition();//Updates win conditions}
@@ -133,7 +140,7 @@ public class GameEngine {
                 System.out.flush();
                 showGameStatus();
                 setOccupancy();
-                printDungeon();
+                printer.printDungeon();
                 printCharacterStats();
                 process1Creature(I);
                 checkWinCondition();
@@ -144,6 +151,7 @@ public class GameEngine {
         }
     }
     
+
     // Function to get characters from a particular room
     private void setCharactersInRoom(Room room) {
         ArrayList<Characters> characters_in_room = new ArrayList<>();
@@ -156,6 +164,7 @@ public class GameEngine {
         room.setCharactersInRoom(characters_in_room);  
     }
 
+
     //Function to get creatures from a particular room
     private void setCreaturesInRoom(Room room) {
         ArrayList<Creatures> creatures_in_room = new ArrayList<>();
@@ -167,6 +176,15 @@ public class GameEngine {
         }
         room.setCreaturesInRoom(creatures_in_room);  
     }
+
+
+    private void setOccupancy() {
+        for (Room r:this.dungeon.getMap().values()) {
+            setCharactersInRoom(r);
+            setCreaturesInRoom(r); 
+        }
+    }
+
 
     //Processes the decision making for one character. 
     //if a creature is in the room, it automatically fights
@@ -196,6 +214,7 @@ public class GameEngine {
         }
     }
     
+
     //Processes the decision making for one creature. 
     //if a character is in the room, it automatically fights
     //if no other character is in the room, the moves according to
@@ -235,6 +254,7 @@ public class GameEngine {
         }
     }
     
+
     //Checks various end game conditions and modifies EndCondition accordingly
     private void checkWinCondition(){
         int TC = 0;
@@ -281,6 +301,7 @@ public class GameEngine {
 
     }
 
+
     //Shows an overview of game information such as win conditions and entitys
     private void showGameStatus(){
         System.out.print("Game Status: ");
@@ -295,64 +316,6 @@ public class GameEngine {
 
     }
 
-    private void setOccupancy() {
-        for (Room r:this.dungeon.getMap().values()) {
-            setCharactersInRoom(r);
-            setCreaturesInRoom(r); 
-        }
-    }
-
-    private String getOccupancyString(Room room){
-        ArrayList<Characters> characters_in_room = room.getCharactersInRoom();
-        String char_string = new String();
-        for (Characters c:characters_in_room) {
-            char_string += c.getName();
-            char_string += " ";
-        }
-
-        ArrayList<Creatures> creatures_in_room = room.getCreaturesInRoom();
-        String creature_string = new String();
-        for (Creatures c:creatures_in_room) {
-            creature_string += c.getName();
-            creature_string += " ";
-        }
-        String occupancy_string = new String(room.getName() + ": " + char_string + " : " + creature_string);
-        return occupancy_string;
-    }
-
-    private void printRowString (Integer level, Integer row) {
-        ArrayList<Room> row_rooms = new ArrayList<Room>();
-        row_rooms.add(dungeon.getRoom("(" + level + "-" + row + "-0)"));
-        row_rooms.add(dungeon.getRoom("(" + level + "-" + row + "-1)"));
-        row_rooms.add(dungeon.getRoom("(" + level + "-" + row + "-2)"));
-        String row_string = new String();
-        for (Room r:row_rooms) {
-            row_string += getOccupancyString(r);
-            row_string += "    ";
-        }
-        System.out.println(row_string);
-    }
-
-    private void printLevel (Integer level) {
-        System.out.println("Level " + level);
-        for (int r = 0; r <= 2; ++r) {
-            printRowString(level, r);
-        }
-    }
-
-    private void printDungeon() {
-        setOccupancy();
-        // Level 0 
-        System.out.println("Level 0");
-        Room starting_room = dungeon.getRoom("(0-1-1)");
-        String occupancy_string = getOccupancyString(starting_room);
-        System.out.println(occupancy_string);
-
-        // Levels 1, 2, 3, 4
-        for (int l = 1; l <= 4; ++l) {
-            printLevel(l);
-        }
-    }
 
     private void printCharacterStats() {
         for (Characters c:CharacterList) {
