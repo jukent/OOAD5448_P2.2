@@ -97,6 +97,7 @@ public class GameEngine {
         }
 
         printDungeon();
+        printCharacterStats();
     }
     
 
@@ -259,6 +260,17 @@ public class GameEngine {
         // Levels 1, 2, 3, 4
         for (int l = 1; l < 4; ++l) {
             printLevel(l);
+        }
+    }
+
+    private void printCharacterStats() {
+        for (Characters c:CharacterList) {
+            String name = c.getName();
+            Integer g = c.getTreasure();
+            Integer hp = c.getHealth();
+
+            String char_stats = new String(name + " - " + g + " Treasure(s) - " + hp + " Damage");
+            System.out.println(char_stats);
         }
     }
 }
