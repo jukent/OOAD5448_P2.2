@@ -6,7 +6,7 @@ public class Orbiters extends Creatures{
 
     String direction = "clockwise"; // Need to add a default
 
-    Orbiters(int A,Dungeon map){
+    Orbiters(int A,Dungeon map) {
         super.ID = A;
         this.dungeon = map;
         name = "Orbiter";
@@ -61,14 +61,10 @@ public class Orbiters extends Creatures{
     @Override
     public void move(){
         Room current_room = this.getLocation();
-        System.out.println(current_room.getName());
+
         Integer level = current_room.getLevel();
         Integer row = current_room.getRow();
         Integer column = current_room.getColumn();
-
-        Dungeon dungeon = new Dungeon();
-
-        //Room new_room;
 
         if (direction.equals("clockwise")) {
             // Orbit Clockwise
@@ -145,6 +141,5 @@ public class Orbiters extends Creatures{
                 this.setLocation(new_room);
             }
         }
-        System.out.println(this.getLocation().getName());
     }
 }

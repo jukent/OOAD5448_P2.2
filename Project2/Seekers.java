@@ -4,8 +4,7 @@ import java.util.Random;
 
 public class Seekers extends Creatures{
 
-    ArrayList<Characters> CharacterList; // Seekers get to know where characters are
-    Seekers(int A,Dungeon map, ArrayList<Characters> CharacterList){
+    Seekers(int A,Dungeon map) {
         this.dungeon = map;
         super.ID = A;
         setStartingRoom();
@@ -39,34 +38,33 @@ public class Seekers extends Creatures{
     public void move(){
         Room current_room = this.getLocation();
 
-        ArrayList<String>exits = current_room.getExits();
-
         // List of nearby rooms
+        ArrayList<String>exits = current_room.getExits();
         // Convert Room-Name-Strings to Rooms
-        Dungeon dungeon = new Dungeon();
-        ArrayList<Room> exit_rooms = new ArrayList<>();
+        ArrayList<Room> populated_exits = new ArrayList<>();
         for (String x: exits) {
             Room exit_room = dungeon.getRoom(x);
-            if (exit_room.getCharactersInRoom().size() > 0) {
+            ArrayList<Characters> characters_in_room = exit_room.getCharactersInRoom();
+            if (characters_in_room.size() > 0) {
                 // If character in room add it to possible exit_rooms
-                exit_rooms.add(exit_room);
+                populated_exits.add(exit_room);
             }
         }
 
         // Move based on interesections
-        if (exit_rooms.size() == 0 ) {
+        if (populated_exits.size() == 0 ) {
             // If no intersection, don't move
             this.setLocation(this.getLocation());
-        } else if (exit_rooms.size() == 1) {
+        } else if (populated_exits.size() == 1) {
             // If one intersection, move there
-            Room new_room = exit_rooms.get(0);
+            Room new_room = populated_exits.get(0);
             this.setLocation(new_room);
         } else {
             // If multiple intersections, choose one randomly
             Random random = new Random();
-            int random_index = random.nextInt(exit_rooms.size());
+            int random_index = random.nextInt(populated_exits.size());
         
-            Room new_room = exit_rooms.get(random_index);
+            Room new_room = populated_exits.get(random_index);
             this.setLocation(new_room);
         }
     }
