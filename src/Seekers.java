@@ -6,8 +6,8 @@ public class Seekers extends Creatures{
 
     ArrayList<Characters> CharacterList; // Seekers get to know where characters are
     Seekers(int A,Dungeon map){
-        this.dungeon = map;
-        this.Location = dungeon.getRoom("(1-1-1)");
+        //this.dungeon = map;
+        //this.Location = dungeon.getRoom("(1-1-1)");
         super.ID = A;
         setStartingRoom();
         name = "Seeker";
@@ -16,11 +16,11 @@ public class Seekers extends Creatures{
     /**
      * Randomly generate starting room for orbiters from any exterior room on any level
      */
-    protected void setStartingRoom() {
+    protected void setStartingRoom(Dungeon dungeon) {
         //Blinkers start anywhere on the 4th level
 
         // Get map of possible rooms
-        Hashtable<String, Room> possible_room_map = this.dungeon.getMap();
+        Hashtable<String, Room> possible_room_map = dungeon.getMap();
         possible_room_map.remove("0-1-1"); // remove entrace room
                 
         // Randomly select one of the rooms
@@ -36,14 +36,13 @@ public class Seekers extends Creatures{
      * @see Creatures#move()
      */
     @Override
-    public void move(){
+    public void move(Dungeon dungeon){
         Room current_room = this.getLocation();
 
         ArrayList<String>exits = current_room.getExits();
 
         // List of nearby rooms
         // Convert Room-Name-Strings to Rooms
-        Dungeon dungeon = new Dungeon();
         ArrayList<Room> exit_rooms = new ArrayList<>();
         for (String x: exits) {
             Room exit_room = dungeon.getRoom(x);

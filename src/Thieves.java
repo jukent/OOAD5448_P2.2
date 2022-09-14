@@ -1,7 +1,6 @@
 public class Thieves extends Characters{
     Thieves(int A,Dungeon map){
-        this.dungeon = map;
-        this.Location = dungeon.getRoom("(0-1-1)");
+        //this.dungeon = map;
         super.ID = A;
         name = "Thief";
     }

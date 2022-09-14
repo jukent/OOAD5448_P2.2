@@ -37,6 +37,7 @@ public class GameEngine {
         ID++;
         CharacterList.add(new Brawlers(ID,dungeon));
         ID++;
+
         CreatureList.add(new Seekers(ID,dungeon));
         ID++;
         CreatureList.add(new Orbiters(ID,dungeon));
@@ -181,7 +182,7 @@ public class GameEngine {
             else{
             switch(DiceRolls.rollDice(2)){
                 case 1:
-                    A.move();
+                    A.move(dungeon);
                     break;
                 case 2:
                     simulateTreasure(A);
@@ -203,7 +204,7 @@ public class GameEngine {
         if(characters_in_room.size() > 0){
             simulateFight(characters_in_room.get(0), A);
         }
-        else{A.move();}
+        else{A.move(dungeon);}
     }
     
     //Checks various end game conditions and modifies EndCondition accordingly

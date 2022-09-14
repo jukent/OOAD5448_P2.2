@@ -8,8 +8,8 @@ public class Orbiters extends Creatures{
 
     Orbiters(int A,Dungeon map){
         super.ID = A;
-        this.dungeon = map;
-        this.Location = dungeon.getRoom("(1-1-1)");
+        //this.dungeon = map;
+        //this.Location = dungeon.getRoom("(1-1-1)");
         name = "Orbiter";
         setStartingRoom(); // Set starting room
         this.direction = setDirection(); // Clockwise or Counterclockwise
@@ -18,11 +18,11 @@ public class Orbiters extends Creatures{
     /**
      * Randomly generate starting room for orbiters from any exterior room on any level
      */
-    protected void setStartingRoom() {
+    protected void setStartingRoom(Dungeon dungeon) {
         //Blinkers start anywhere on the 4th level
 
         // Get map of possible rooms
-        Hashtable<String, Room> possible_room_map = this.dungeon.getMap();
+        Hashtable<String, Room> possible_room_map = dungeon.getMap();
         possible_room_map.remove("0-1-1"); // remove entrace room
         possible_room_map.remove("1-1-1"); // remove 1st floor center room
         possible_room_map.remove("2-1-1"); // remove 2nd floor center room
@@ -61,13 +61,13 @@ public class Orbiters extends Creatures{
      * This one is trickier
      */
     @Override
-    public void move(){
+    public void move(Dungeon dungeon){
         Room current_room = this.getLocation();
         Integer level = current_room.getLevel();
         Integer row = current_room.getRow();
         Integer column = current_room.getColumn();
 
-        Dungeon dungeon = new Dungeon();
+        //Dungeon dungeon = new Dungeon();
 
         Room new_room = this.getLocation(); // Initialize a room
         if (direction.equals("clockwise")) {

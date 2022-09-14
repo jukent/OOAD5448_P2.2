@@ -5,8 +5,8 @@ import java.util.Random;
 public class Blinkers extends Creatures{
     Blinkers(int A,Dungeon map){
         super.ID = A;
-        this.dungeon = map;
-        this.Location = dungeon.getRoom("(4-1-1)");
+        //this.dungeon = map;
+        //this.Location = dungeon.getRoom("(4-1-1)");
         name = "Blinker";
 
         //Blinkers start anywhere on the 4th level
@@ -16,7 +16,7 @@ public class Blinkers extends Creatures{
     /**
      * Randomly generate starting room for blinker from any room on 4th level
      */
-    protected void setStartingRoom() {
+    protected void setStartingRoom(Dungeon dungeon) {
         //Blinkers start anywhere on the 4th level
 
         // Get list of possible starting rooms
@@ -46,7 +46,7 @@ public class Blinkers extends Creatures{
      * If not, blinks to another random room in the dungeon
      */
     @Override
-    public void move(){
+    public void move(Dungeon dungeon){
         Room current_room = this.getLocation();
         // Blink
         // Get map of possible rooms

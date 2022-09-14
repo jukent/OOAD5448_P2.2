@@ -3,7 +3,6 @@ public abstract class Creatures {
 
     //room location stored Room object accessed by name (level-row-column)
     //Level Range [0-4], Column range [1-3], Row Range [1-3]
-    Dungeon dungeon;
     protected Room Location;
 
     String name = new String("Creature");
@@ -16,7 +15,7 @@ public abstract class Creatures {
         return DiceRolls.rollDice(6)+DiceRolls.rollDice(6);
     }
     //Template function for specific move directions
-    public void move(){}
+    public void move(Dungeon dungeon){}
 
     //Manually set characters location
     //No influence from other rooms
