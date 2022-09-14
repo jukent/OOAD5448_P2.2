@@ -6,7 +6,6 @@ public class Blinkers extends Creatures{
     Blinkers(int A,Dungeon map){
         super.ID = A;
         this.dungeon = map;
-        this.Location = dungeon.getRoom("(4-1-1)");
         name = "Blinker";
 
         //Blinkers start anywhere on the 4th level
@@ -49,8 +48,10 @@ public class Blinkers extends Creatures{
     public void move(){
         Room current_room = this.getLocation();
         // Blink
-        // Get map of possible rooms
-        Hashtable<String, Room> possible_room_map = dungeon.getMap();
+
+        // Get map of possible rooms -- need a new hashtable (to not erase rooms from THE Dungeon)
+        Hashtable<String, Room> possible_room_map = new Hashtable<String, Room>();
+        possible_room_map.putAll(dungeon.getMap());
         possible_room_map.remove("0-1-1"); // remove entrace room
         possible_room_map.remove(current_room.getName()); // remove current room
 

@@ -5,9 +5,8 @@ import java.util.Random;
 public class Seekers extends Creatures{
 
     ArrayList<Characters> CharacterList; // Seekers get to know where characters are
-    Seekers(int A,Dungeon map){
+    Seekers(int A,Dungeon map, ArrayList<Characters> CharacterList){
         this.dungeon = map;
-        this.Location = dungeon.getRoom("(1-1-1)");
         super.ID = A;
         setStartingRoom();
         name = "Seeker";
@@ -17,10 +16,11 @@ public class Seekers extends Creatures{
      * Randomly generate starting room for orbiters from any exterior room on any level
      */
     protected void setStartingRoom() {
-        //Blinkers start anywhere on the 4th level
+        //Seekers start anywhere in dungeon
 
-        // Get map of possible rooms
-        Hashtable<String, Room> possible_room_map = this.dungeon.getMap();
+        // Get new map of possible rooms
+        Hashtable<String, Room> possible_room_map = new Hashtable<String, Room>();
+        possible_room_map.putAll(dungeon.getMap());
         possible_room_map.remove("0-1-1"); // remove entrace room
                 
         // Randomly select one of the rooms
@@ -47,15 +47,16 @@ public class Seekers extends Creatures{
         ArrayList<Room> exit_rooms = new ArrayList<>();
         for (String x: exits) {
             Room exit_room = dungeon.getRoom(x);
+            //ArrayList<Characters> characters_in_room = getCharactersInRoom(exit_room);
             exit_rooms.add(exit_room);
         }
 
         // List of character locations
-        ArrayList<Room> character_locations = new ArrayList<Room>();
-        for (Characters c: CharacterList) {
-            Room c_room = c.getLocation();
-            character_locations.add(c_room);
-        }
+        //ArrayList<Room> character_locations = new ArrayList<Room>();
+        //for (Characters c: CharacterList) {
+        //    Room c_room = c.getLocation();
+        //    character_locations.add(c_room);
+        //}
 
         // Compare lists -- this could be a utility fx
         // Worried about the equality of objects here

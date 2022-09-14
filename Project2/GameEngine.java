@@ -37,18 +37,19 @@ public class GameEngine {
         ID++;
         CharacterList.add(new Brawlers(ID,dungeon));
         ID++;
-        CreatureList.add(new Seekers(ID,dungeon));
+
+        CreatureList.add(new Seekers(ID,dungeon,CharacterList));
         ID++;
-        CreatureList.add(new Orbiters(ID,dungeon));
-        ID++;
+        //CreatureList.add(new Orbiters(ID,dungeon));
+        //ID++;
         CreatureList.add(new Blinkers(ID,dungeon));
         ID++;
-        CreatureList.add(new Seekers(ID,dungeon));
-        ID++;
-        CreatureList.add(new Orbiters(ID,dungeon));
-        ID++;
-        CreatureList.add(new Blinkers(ID,dungeon));
-        ID++;
+        //CreatureList.add(new Seekers(ID,dungeon, CharacterList));
+        //ID++;
+        //CreatureList.add(new Orbiters(ID,dungeon));
+        //ID++;
+        //CreatureList.add(new Blinkers(ID,dungeon));
+        //ID++;
     }
     
     //Run the game by simulating processing each turn which includes
@@ -150,7 +151,6 @@ public class GameEngine {
         return creatures_in_room;  
     }
 
-    // This one is public because Seekers are capable of knowing 
     public ArrayList<Characters> getCharactersInRoom(Room room) {
         ArrayList<Characters> characters_in_room = new ArrayList<>();
         for (Characters c:CharacterList) {
@@ -174,18 +174,27 @@ public class GameEngine {
         
         //Process turn counts for characters. Mostly 1 but runners have 2
         for(int i = 0; i<A.MoveCount;i++){
+            //if(creatures_in_room.size() > 0) {
+            //    simulateFight(A, creatures_in_room.get(0));
+            //    continue;
+            //}
+            //else{
+            //switch(DiceRolls.rollDice(2)){
+            //    case 1:
+            //        A.move();
+            //         break;
+            //    case 2:
+            //        simulateTreasure(A);
+            //        break;}
+            A.move();
             if(creatures_in_room.size() > 0) {
-                simulateFight(A, creatures_in_room.get(0));
+                for (Creatures c:creatures_in_room) {
+                    simulateFight(A, c);
+                }
                 continue;
-            }
-            else{
-            switch(DiceRolls.rollDice(2)){
-                case 1:
-                    A.move();
-                    break;
-                case 2:
-                    simulateTreasure(A);
-                    break;}
+            } else{
+                simulateTreasure(A);
+                break;
             }
         }
     }
@@ -201,7 +210,9 @@ public class GameEngine {
         
         //Process decision making for creatures
         if(characters_in_room.size() > 0){
-            simulateFight(characters_in_room.get(0), A);
+            for (Characters c:characters_in_room) {
+                simulateFight(c, A);
+            }
         }
         else{A.move();}
     }

@@ -44,7 +44,7 @@ public class Room {
 
         if (this.level == 0) {
             // If in starting room (0-1-1), only stairs down
-            String neighboring_room = new String("(0-1-1)");
+            String neighboring_room = new String("(1-1-1)");
             exits.add(neighboring_room);
         } else {
             // If already in the dungeon . . .
