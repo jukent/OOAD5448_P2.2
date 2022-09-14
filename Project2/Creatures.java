@@ -38,7 +38,11 @@ public abstract class Creatures {
         return HP;
     }
 
+
+    protected void setStartingRoom(){}
+
     public String getName() {
         return name;
     }
+
 }

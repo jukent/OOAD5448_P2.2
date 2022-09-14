@@ -14,7 +14,7 @@ public class Blinkers extends Creatures{
     /**
      * Randomly generate starting room for blinker from any room on 4th level
      */
-    private void setStartingRoom() {
+    protected void setStartingRoom() {
         //Blinkers start anywhere on the 4th level
 
         // Get list of possible starting rooms
