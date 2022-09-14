@@ -47,43 +47,26 @@ public class Seekers extends Creatures{
         ArrayList<Room> exit_rooms = new ArrayList<>();
         for (String x: exits) {
             Room exit_room = dungeon.getRoom(x);
-            //ArrayList<Characters> characters_in_room = getCharactersInRoom(exit_room);
-            exit_rooms.add(exit_room);
-        }
-
-        // List of character locations
-        //ArrayList<Room> character_locations = new ArrayList<Room>();
-        //for (Characters c: CharacterList) {
-        //    Room c_room = c.getLocation();
-        //    character_locations.add(c_room);
-        //}
-
-        // Compare lists -- this could be a utility fx
-        // Worried about the equality of objects here
-        // Hoping that code will recognize identical Room objects 
-        // but I'm not clear on if we are generating new Room objects with identical attributes anywhere
-        // If so we can compare room string names `.equal()` as an easy fix
-        ArrayList<Room> room_intersections = new ArrayList<>();
-        for (Room r: exit_rooms) {
-            if (character_locations.contains(r)) {
-                room_intersections.add(r);
+            if (exit_room.getCharactersInRoom().size() > 0) {
+                // If character in room add it to possible exit_rooms
+                exit_rooms.add(exit_room);
             }
         }
 
         // Move based on interesections
-        if (room_intersections.size() == 0 ) {
+        if (exit_rooms.size() == 0 ) {
             // If no intersection, don't move
             this.setLocation(this.getLocation());
-        } else if (room_intersections.size() == 1) {
+        } else if (exit_rooms.size() == 1) {
             // If one intersection, move there
-            Room new_room = room_intersections.get(0);
+            Room new_room = exit_rooms.get(0);
             this.setLocation(new_room);
         } else {
             // If multiple intersections, choose one randomly
             Random random = new Random();
-            int random_index = random.nextInt(room_intersections.size());
+            int random_index = random.nextInt(exit_rooms.size());
         
-            Room new_room = room_intersections.get(random_index);
+            Room new_room = exit_rooms.get(random_index);
             this.setLocation(new_room);
         }
     }

@@ -21,7 +21,8 @@ public class Orbiters extends Creatures{
         //Orbiters start in any outside room
 
         // Get map of possible rooms
-        Hashtable<String, Room> possible_room_map = this.dungeon.getMap();
+        Hashtable<String, Room> possible_room_map = new Hashtable<String, Room>();
+        possible_room_map.putAll(dungeon.getMap());
         possible_room_map.remove("0-1-1"); // remove entrace room
         possible_room_map.remove("1-1-1"); // remove 1st floor center room
         possible_room_map.remove("2-1-1"); // remove 2nd floor center room

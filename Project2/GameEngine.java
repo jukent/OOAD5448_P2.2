@@ -40,8 +40,8 @@ public class GameEngine {
 
         CreatureList.add(new Seekers(ID,dungeon,CharacterList));
         ID++;
-        //CreatureList.add(new Orbiters(ID,dungeon));
-        //ID++;
+        CreatureList.add(new Orbiters(ID,dungeon));
+        ID++;
         CreatureList.add(new Blinkers(ID,dungeon));
         ID++;
         //CreatureList.add(new Seekers(ID,dungeon, CharacterList));
@@ -139,19 +139,7 @@ public class GameEngine {
         }
     }
     
-    //Function to get creatures from a particular room
-    private ArrayList<Creatures> getCreaturesInRoom(Room room) {
-        ArrayList<Creatures> creatures_in_room = new ArrayList<>();
-        for (Creatures c:CreatureList) {
-            Room creature_location = c.getLocation();
-            if (creature_location == room) {
-                creatures_in_room.add(c);
-            } 
-        }
-        return creatures_in_room;  
-    }
-
-    public ArrayList<Characters> getCharactersInRoom(Room room) {
+    private void findCharactersInRoom(Room room) {
         ArrayList<Characters> characters_in_room = new ArrayList<>();
         for (Characters c:CharacterList) {
             Room character_location = c.getLocation();
@@ -159,7 +147,19 @@ public class GameEngine {
                 characters_in_room.add(c);
             } 
         }
-        return characters_in_room;  
+        room.setCharactersInRoom(characters_in_room);  
+    }
+
+    //Function to get creatures from a particular room
+    private void findCreaturesInRoom(Room room) {
+        ArrayList<Creatures> creatures_in_room = new ArrayList<>();
+        for (Creatures c:CreatureList) {
+            Room creature_location = c.getLocation();
+            if (creature_location == room) {
+                creatures_in_room.add(c);
+            } 
+        }
+        room.setCreaturesInRoom(creatures_in_room);  
     }
 
     //Processes the decision making for one character. 
@@ -168,25 +168,15 @@ public class GameEngine {
     //decides to search for treasure or move(). Decision of direction
     //to profile is specified in move()
     private  void process1Character(Characters A){
-        //Get Current room and gives a list of creatures in the room
-        Room current_room = A.getLocation();
-        ArrayList<Creatures> creatures_in_room = getCreaturesInRoom(current_room);
-        
+ 
         //Process turn counts for characters. Mostly 1 but runners have 2
         for(int i = 0; i<A.MoveCount;i++){
-            //if(creatures_in_room.size() > 0) {
-            //    simulateFight(A, creatures_in_room.get(0));
-            //    continue;
-            //}
-            //else{
-            //switch(DiceRolls.rollDice(2)){
-            //    case 1:
-            //        A.move();
-            //         break;
-            //    case 2:
-            //        simulateTreasure(A);
-            //        break;}
             A.move();
+
+            // Look for creatures
+            Room current_room = A.getLocation();
+            findCreaturesInRoom(current_room);
+            ArrayList<Creatures> creatures_in_room = current_room.getCreaturesInRoom();
             if(creatures_in_room.size() > 0) {
                 for (Creatures c:creatures_in_room) {
                     simulateFight(A, c);
@@ -204,17 +194,33 @@ public class GameEngine {
     //if no other character is in the room, the moves according to
     //its profile specified in move()
     private void process1Creature(Creatures A){
-        //Get Room informationa and characters in the room
+
+        //Get Room information and characters in the room
         Room current_room = A.getLocation();
-        ArrayList<Characters> characters_in_room = getCharactersInRoom(current_room);
+        findCharactersInRoom(current_room);
+        ArrayList<Characters> characters_in_room = current_room.getCharactersInRoom();
         
         //Process decision making for creatures
         if(characters_in_room.size() > 0){
+            // If there is a character, don't move, fight
             for (Characters c:characters_in_room) {
                 simulateFight(c, A);
             }
         }
-        else{A.move();}
+        else{
+            // If no character, move
+            A.move();
+            
+            // Check for characters in new room
+            Room new_room = A.getLocation();
+            findCharactersInRoom(new_room);
+            ArrayList<Characters> characters_in_new_room = current_room.getCharactersInRoom();
+
+            // If characters in new room, fight
+            for (Characters c:characters_in_new_room) {
+                simulateFight(c, A);
+            }
+        }
     }
     
     //Checks various end game conditions and modifies EndCondition accordingly
@@ -276,14 +282,17 @@ public class GameEngine {
     }
 
     private String getOccupancyString(Room room){
-        ArrayList<Characters> characters_in_room = getCharactersInRoom(room);
+        findCharactersInRoom(room);
+        findCreaturesInRoom(room);
+
+        ArrayList<Characters> characters_in_room = room.getCharactersInRoom();
         String char_string = new String();
         for (Characters c:characters_in_room) {
             char_string += c.getName();
             char_string += " ";
         }
 
-        ArrayList<Creatures> creatures_in_room = getCreaturesInRoom(room);
+        ArrayList<Creatures> creatures_in_room = room.getCreaturesInRoom();
         String creature_string = new String();
         for (Creatures c:creatures_in_room) {
             creature_string += c.getName();

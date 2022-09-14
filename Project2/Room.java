@@ -5,6 +5,10 @@ public class Room {
     private int level, row, column; // the level, row, and column coordinates for this room - Integers
     private String name; // the name  of this room, i.e. "(2-0-0)" - String
     private ArrayList<String> exits; // list of neighboring room names i.e. ["(2-1-0)","(2-0-1)"] 
+    
+    private ArrayList<Characters> characters_in_room;
+    private ArrayList<Creatures> creatures_in_room;
+
 
     /**
      * @param Level: Integer
@@ -26,6 +30,10 @@ public class Room {
 
         ArrayList<String> exits = findExits();
         this.exits = exits;
+
+
+        this.characters_in_room = new ArrayList<Characters>();
+        this.creatures_in_room = new ArrayList<Creatures>();
     }
 
 
@@ -140,5 +148,21 @@ public class Room {
      */
     public Integer getColumn() {
         return column;
+    }
+
+    public ArrayList<Characters> getCharactersInRoom() {
+        return this.characters_in_room;
+    }
+
+    public void setCharactersInRoom(ArrayList<Characters> characters_in_room) {
+        this.characters_in_room = characters_in_room;
+    }
+
+    public ArrayList<Creatures> getCreaturesInRoom() {
+        return this.creatures_in_room;
+    }
+
+    public void setCreaturesInRoom(ArrayList<Creatures> creatures_in_room) {
+        this.creatures_in_room = creatures_in_room;
     }
 }
