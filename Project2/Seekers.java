@@ -4,8 +4,7 @@ import java.util.Random;
 
 public class Seekers extends Creatures{
 
-    ArrayList<Characters> CharacterList; // Seekers get to know where characters are
-    Seekers(int A,Dungeon map, ArrayList<Characters> CharacterList){
+    Seekers(int A,Dungeon map){
         this.dungeon = map;
         super.ID = A;
         setStartingRoom();

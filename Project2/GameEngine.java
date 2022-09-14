@@ -20,7 +20,7 @@ public class GameEngine {
 
     //Constructor to initialize board.
     public GameEngine(){
-        populateCharacters();
+        populateEntities();
         System.out.println("Starting Game!");
         System.out.println("Press Enter To Continue...");
         A.nextLine();
@@ -28,7 +28,8 @@ public class GameEngine {
     }
 
     //Populate CharacterList and CreatureList with characters
-    private void populateCharacters(){
+    private void populateEntities(){
+        // Characters
         CharacterList.add(new Runners(ID,dungeon));
         ID++;
         CharacterList.add(new Sneakers(ID,dungeon));
@@ -38,18 +39,21 @@ public class GameEngine {
         CharacterList.add(new Brawlers(ID,dungeon));
         ID++;
 
-        CreatureList.add(new Seekers(ID,dungeon,CharacterList));
+        // Creatures
+        CreatureList.add(new Seekers(ID,dungeon));
         ID++;
-        //CreatureList.add(new Orbiters(ID,dungeon));
-        //ID++;
-        //CreatureList.add(new Blinkers(ID,dungeon));
-        //ID++;
-        CreatureList.add(new Seekers(ID,dungeon, CharacterList));
+        CreatureList.add(new Orbiters(ID,dungeon));
         ID++;
-        //CreatureList.add(new Orbiters(ID,dungeon));
-        //ID++;
-        //CreatureList.add(new Blinkers(ID,dungeon));
-        //ID++;
+        CreatureList.add(new Blinkers(ID,dungeon));
+        ID++;
+        CreatureList.add(new Seekers(ID,dungeon));
+        ID++;
+        CreatureList.add(new Orbiters(ID,dungeon));
+        ID++;
+        CreatureList.add(new Blinkers(ID,dungeon));
+        ID++;
+
+        setOccupancy();
     }
     
     //Run the game by simulating processing each turn which includes
@@ -92,7 +96,6 @@ public class GameEngine {
 
         }
         else{System.out.println(" Fight Skipped");}
-
     }
     
     //Performs the character action of searching for treasure.
@@ -114,6 +117,7 @@ public class GameEngine {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 showGameStatus();
+                setOccupancy();
                 printDungeon();
                 printCharacterStats();
                 process1Character(I);//Process character
@@ -128,6 +132,7 @@ public class GameEngine {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 showGameStatus();
+                setOccupancy();
                 printDungeon();
                 printCharacterStats();
                 process1Creature(I);
@@ -139,6 +144,7 @@ public class GameEngine {
         }
     }
     
+    // Function to get characters from a particular room
     private void setCharactersInRoom(Room room) {
         ArrayList<Characters> characters_in_room = new ArrayList<>();
         for (Characters c:CharacterList) {
@@ -173,10 +179,10 @@ public class GameEngine {
         for(int i = 0; i<A.MoveCount;i++){
             A.move();
             Room new_room = A.getLocation();
-            setCharactersInRoom(new_room); // Tell Room that character is there
+            setOccupancy();
 
             // Look for creatures
-            setCreaturesInRoom(new_room);
+            //setCreaturesInRoom(new_room);
             ArrayList<Creatures> creatures_in_room = new_room.getCreaturesInRoom();
             if(creatures_in_room.size() > 0) {
                 for (Creatures c:creatures_in_room) {
@@ -195,22 +201,20 @@ public class GameEngine {
     //if no other character is in the room, the moves according to
     //its profile specified in move()
     private void process1Creature(Creatures A){
-
-
-        System.out.println("Creature turn");
+        System.out.println(A.getName() + "'s turn");
 
         //Get Room information and characters in the room
         Room current_room = A.getLocation();
-        setCharactersInRoom(current_room);
+        setOccupancy();
         ArrayList<Characters> characters_in_room = current_room.getCharactersInRoom();
 
 
         // Find characters in nearby rooms (for Seekers sake)
-        ArrayList<String>exits = current_room.getExits();
-        for (String x: exits) {
-            Room exit_room = dungeon.getRoom(x);
-            setCharactersInRoom(exit_room);
-        }
+        //ArrayList<String>exits = current_room.getExits();
+        //for (String x: exits) {
+        //    Room exit_room = dungeon.getRoom(x);
+        //    setCharactersInRoom(exit_room);
+        //}
         
         //Process decision making for creatures
         if(characters_in_room.size() > 0){
@@ -221,16 +225,12 @@ public class GameEngine {
         }
         else{
             // If no character, move
-            System.out.println("Creature Move Behavior");
             A.move();
             Room new_room = A.getLocation();
-            setCreaturesInRoom(new_room); // Tell Room that Creature is there
+            setOccupancy();
             
-            // Check for characters in new room
-            setCharactersInRoom(new_room);
-            ArrayList<Characters> characters_in_new_room = current_room.getCharactersInRoom();
-
             // If characters in new room, fight
+            ArrayList<Characters> characters_in_new_room = new_room.getCharactersInRoom();
             for (Characters c:characters_in_new_room) {
                 simulateFight(c, A);
             }
@@ -241,10 +241,11 @@ public class GameEngine {
     private void checkWinCondition(){
         int TC = 0;
 
-        //Removes creatuers from board if it runs out of health
+        //Removes creatures from board if it runs out of health
         for(Creatures I: CreatureList){
             if(I.getHealth() <= 0){
                 CreatureList.remove(I);
+                
             }
         }
         //Removes character from board if it runs out of health
@@ -255,6 +256,7 @@ public class GameEngine {
             }
             else{TC += I.getTreasure();}
         }
+        setOccupancy(); // to remove dead creatures and characters
 
         //Update game tracking variables
         TreasureCount = TC;
@@ -295,10 +297,14 @@ public class GameEngine {
 
     }
 
-    private String getOccupancyString(Room room){
-        setCharactersInRoom(room);
-        setCreaturesInRoom(room);
+    private void setOccupancy() {
+        for (Room r:this.dungeon.getMap().values()) {
+            setCharactersInRoom(r);
+            setCreaturesInRoom(r); 
+        }
+    }
 
+    private String getOccupancyString(Room room){
         ArrayList<Characters> characters_in_room = room.getCharactersInRoom();
         String char_string = new String();
         for (Characters c:characters_in_room) {
@@ -337,10 +343,10 @@ public class GameEngine {
     }
 
     private void printDungeon() {
+        setOccupancy();
         // Level 0 
         System.out.println("Level 0");
         Room starting_room = dungeon.getRoom("(0-1-1)");
-        //System.out.println(starting_room);
         String occupancy_string = getOccupancyString(starting_room);
         System.out.println(occupancy_string);
 
