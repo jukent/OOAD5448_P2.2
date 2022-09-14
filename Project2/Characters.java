@@ -7,7 +7,7 @@ public abstract class Characters {
     //room location stored Room object accessed by name (level-row-column)
     //Level Range [0-4], Column range [1-3], Row Range [1-3]
     Dungeon dungeon;
-    protected Room Location = dungeon.getRoom("0-1-1");
+    protected Room Location;
 
     String name = new String("Character");
 
@@ -64,19 +64,19 @@ public abstract class Characters {
     }
 
     public void loseHealth(int n){
-        HP = HP -n;
+        this.HP = this.HP -n;
     }
     public int getHealth(){
-        return HP;
+        return this.HP;
     }
     public int getTreasure(){
-        return TreasureCount;
+        return this.TreasureCount;
     }
     public void gainTreasure(){
         this.TreasureCount++;
     }
     public String getName() {
-        return name;
+        return this.name;
     }
 }
 

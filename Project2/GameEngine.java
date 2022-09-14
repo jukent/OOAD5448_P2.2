@@ -1,6 +1,5 @@
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-import java.util.Collection;
+import java.util.Scanner;
 
 public class GameEngine {
 
@@ -17,44 +16,50 @@ public class GameEngine {
     private int RoundCounter = 0;
     private int ID = 0;
     private boolean EndCondition = true;
+    private Scanner A = new java.util.Scanner(System.in);
 
     //Constructor to initialize board.
-    GameEngine(){
+    public GameEngine(){
         populateCharacters();
+        System.out.println("Starting Game!");
+        System.out.println("Press Enter To Continue...");
+        A.nextLine();
+        
     }
 
     //Populate CharacterList and CreatureList with characters
     private void populateCharacters(){
-        CharacterList.add(new Runners(ID));
+        CharacterList.add(new Runners(ID,dungeon));
         ID++;
-        CharacterList.add(new Sneakers(ID));
+        CharacterList.add(new Sneakers(ID,dungeon));
         ID++;
-        CharacterList.add(new Thieves(ID));
+        CharacterList.add(new Thieves(ID,dungeon));
         ID++;
-        CharacterList.add(new Brawlers(ID));
+        CharacterList.add(new Brawlers(ID,dungeon));
         ID++;
-        CreatureList.add(new Seekers(ID));
+        CreatureList.add(new Seekers(ID,dungeon));
         ID++;
-        CreatureList.add(new Orbiters(ID));
+        CreatureList.add(new Orbiters(ID,dungeon));
         ID++;
-        CreatureList.add(new Blinkers(ID));
+        CreatureList.add(new Blinkers(ID,dungeon));
         ID++;
-        CreatureList.add(new Seekers(ID));
+        CreatureList.add(new Seekers(ID,dungeon));
         ID++;
-        CreatureList.add(new Orbiters(ID));
+        CreatureList.add(new Orbiters(ID,dungeon));
         ID++;
-        CreatureList.add(new Blinkers(ID));
+        CreatureList.add(new Blinkers(ID,dungeon));
         ID++;
     }
     
     //Run the game by simulating processing each turn which includes
     //characters and creatures. Ends if the end condition is completed
     public  void runGame(){
+        checkWinCondition();
         while(EndCondition){
             RoundCounter++;
             processTurn();
-            
         }        
+        A.close();
     }
     
     //Input a character and creature, and deducts health if 
@@ -70,22 +75,22 @@ public class GameEngine {
                 System.out.print("Fight: ");
                 System.out.print(A.getClass().getSimpleName() + ": ");
                 System.out.print(CharacterRoll);
-                System.out.print(B.getClass().getSimpleName()+": ");
+                System.out.print(" "+ B.getClass().getSimpleName()+": ");
                 System.out.print(CreatureRoll);
-                System.out.println(A.getClass().getSimpleName() +" Wins :D ");
+                System.out.println(" "+ A.getClass().getSimpleName() +" Wins :D ");
             }
             else if (CharacterRoll < CreatureRoll){
                 A.loseHealth(1);
                 System.out.print("Fight: ");
                 System.out.print(A.getClass().getSimpleName() + ": ");
                 System.out.print(CharacterRoll);
-                System.out.print(B.getClass().getSimpleName()+": ");
+                System.out.print(" "+ B.getClass().getSimpleName()+": ");
                 System.out.print(CreatureRoll);
-                System.out.println("Creature Wins :( ");
+                System.out.println(" Creature Wins :( ");
             }
 
         }
-        else{System.out.println("Fight Skipped");}
+        else{System.out.println(" Fight Skipped");}
 
     }
     
@@ -105,27 +110,32 @@ public class GameEngine {
     private void processTurn(){
         for(Characters I: CharacterList){
             if(EndCondition){//Stops processing characters if end condition is met
+                System.out.print("\033[H\033[2J");
                 System.out.flush();
                 showGameStatus();
-                showMap();
+                printDungeon();
+                printCharacterStats();
                 process1Character(I);//Process character
-                checkWinCondition();//Updates win conditions
-                TimeUnit.SECONDS.sleep(1);}
+                checkWinCondition();//Updates win conditions}
+                System.out.println("Press Enter To Continue...");
+                A.nextLine();
+            }
             else{break;}
         }
         for(Creatures I: CreatureList){
             if(EndCondition){//Stops processing creatures if end condition is met
+                System.out.print("\033[H\033[2J");
                 System.out.flush();
                 showGameStatus();
-                showMap();
+                printDungeon();
+                printCharacterStats();
                 process1Creature(I);
                 checkWinCondition();
-                TimeUnit.SECONDS.sleep(1);}
+                System.out.println("Press Enter To Continue...");
+                A.nextLine();
+            }
             else{break;}
         }
-
-        printDungeon();
-        printCharacterStats();
     }
     
     //Function to get creatures from a particular room
@@ -139,7 +149,6 @@ public class GameEngine {
         }
         return creatures_in_room;  
     }
-
 
     // This one is public because Seekers are capable of knowing 
     public ArrayList<Characters> getCharactersInRoom(Room room) {
@@ -244,7 +253,7 @@ public class GameEngine {
     //Shows an overview of game information such as win conditions and entitys
     private void showGameStatus(){
         System.out.print("Game Status: ");
-        System.out.print(" Round");
+        System.out.print(" Round: ");
         System.out.print(RoundCounter);
         System.out.print(" Characters: ");
         System.out.print(CharacterCount);
@@ -253,10 +262,7 @@ public class GameEngine {
         System.out.print(" Treasures Collected: ");
         System.out.println(TreasureCount);
 
-
-
     }
-
 
     private String getOccupancyString(Room room){
         ArrayList<Characters> characters_in_room = getCharactersInRoom(room);
@@ -272,17 +278,15 @@ public class GameEngine {
             creature_string += c.getName();
             creature_string += " ";
         }
-
         String occupancy_string = new String(room.getName() + ": " + char_string + " : " + creature_string);
         return occupancy_string;
     }
 
-
     private void printRowString (Integer level, Integer row) {
         ArrayList<Room> row_rooms = new ArrayList<Room>();
-        row_rooms.add(dungeon.getRoom(level + "-" + row + "-0"));
-        row_rooms.add(dungeon.getRoom(level + "-" + row + "-1"));
-        row_rooms.add(dungeon.getRoom(level + "-" + row + "-2"));
+        row_rooms.add(dungeon.getRoom("(" + level + "-" + row + "-0)"));
+        row_rooms.add(dungeon.getRoom("(" + level + "-" + row + "-1)"));
+        row_rooms.add(dungeon.getRoom("(" + level + "-" + row + "-2)"));
         String row_string = new String();
         for (Room r:row_rooms) {
             row_string += getOccupancyString(r);
@@ -291,24 +295,23 @@ public class GameEngine {
         System.out.println(row_string);
     }
 
-
     private void printLevel (Integer level) {
         System.out.println("Level " + level);
-        for (int r = 0; r < 2; ++r) {
+        for (int r = 0; r <= 2; ++r) {
             printRowString(level, r);
         }
     }
 
-
     private void printDungeon() {
         // Level 0 
         System.out.println("Level 0");
-        Room starting_room = dungeon.getRoom("0-1-1");
+        Room starting_room = dungeon.getRoom("(0-1-1)");
+        //System.out.println(starting_room);
         String occupancy_string = getOccupancyString(starting_room);
         System.out.println(occupancy_string);
 
         // Levels 1, 2, 3, 4
-        for (int l = 1; l < 4; ++l) {
+        for (int l = 1; l <= 4; ++l) {
             printLevel(l);
         }
     }
@@ -317,7 +320,7 @@ public class GameEngine {
         for (Characters c:CharacterList) {
             String name = c.getName();
             Integer g = c.getTreasure();
-            Integer hp = c.getHealth();
+            Integer hp = 3-c.getHealth();
 
             String char_stats = new String(name + " - " + g + " Treasure(s) - " + hp + " Damage");
             System.out.println(char_stats);

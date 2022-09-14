@@ -3,8 +3,10 @@ import java.util.Hashtable;
 import java.util.Random;
 
 public class Blinkers extends Creatures{
-    Blinkers(int A){
+    Blinkers(int A,Dungeon map){
         super.ID = A;
+        this.dungeon = map;
+        this.Location = dungeon.getRoom("(4-1-1)");
         name = "Blinker";
 
         //Blinkers start anywhere on the 4th level

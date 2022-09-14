@@ -6,8 +6,10 @@ public class Orbiters extends Creatures{
 
     String direction = "clockwise"; // Need to add a default
 
-    Orbiters(int A){
+    Orbiters(int A,Dungeon map){
         super.ID = A;
+        this.dungeon = map;
+        this.Location = dungeon.getRoom("(1-1-1)");
         name = "Orbiter";
         setStartingRoom(); // Set starting room
         this.direction = setDirection(); // Clockwise or Counterclockwise
@@ -20,8 +22,7 @@ public class Orbiters extends Creatures{
         //Blinkers start anywhere on the 4th level
 
         // Get map of possible rooms
-        Dungeon dungeon = new Dungeon();
-        Hashtable<String, Room> possible_room_map = dungeon.getMap();
+        Hashtable<String, Room> possible_room_map = this.dungeon.getMap();
         possible_room_map.remove("0-1-1"); // remove entrace room
         possible_room_map.remove("1-1-1"); // remove 1st floor center room
         possible_room_map.remove("2-1-1"); // remove 2nd floor center room
