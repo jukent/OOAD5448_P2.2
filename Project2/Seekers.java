@@ -8,6 +8,7 @@ public class Seekers extends Creatures{
     Seekers(int A){
         super.ID = A;
         setStartingRoom();
+        name = "Seeker";
     }
 
     /**
@@ -43,14 +44,14 @@ public class Seekers extends Creatures{
         // Convert Room-Name-Strings to Rooms
         Dungeon dungeon = new Dungeon();
         ArrayList<Room> exit_rooms = new ArrayList<>();
-        for (int i=0; i < exits.size(); i++) {
-            Room exit_room = dungeon.getRoom(exits.get(i));
+        for (String x: exits) {
+            Room exit_room = dungeon.getRoom(x);
             exit_rooms.add(exit_room);
         }
 
         // List of character locations
         ArrayList<Room> character_locations = new ArrayList<Room>();
-        for (Characters c:CharacterList) {
+        for (Characters c: CharacterList) {
             Room c_room = c.getLocation();
             character_locations.add(c_room);
         }

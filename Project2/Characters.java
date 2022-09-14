@@ -9,6 +9,8 @@ public abstract class Characters {
     Dungeon dungeon;
     protected Room Location = dungeon.getRoom("0-1-1");
 
+    String name = new String("Character");
+
     protected int HP = 3;
     protected int TreasureCount = 0;
     protected int MoveCount = 1;
@@ -72,6 +74,9 @@ public abstract class Characters {
     }
     public void gainTreasure(){
         this.TreasureCount++;
+    }
+    public String getName() {
+        return name;
     }
 }
 
