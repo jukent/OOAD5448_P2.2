@@ -45,7 +45,7 @@ public abstract class Characters {
 
         String new_room_name = exits.get(random_index);
         Room new_room = dungeon.getRoom(new_room_name);
-        
+    
         this.setLocation(new_room);
     }
 

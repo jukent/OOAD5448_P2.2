@@ -9,7 +9,6 @@ public class Orbiters extends Creatures{
     Orbiters(int A,Dungeon map){
         super.ID = A;
         this.dungeon = map;
-        this.Location = dungeon.getRoom("(1-1-1)");
         name = "Orbiter";
         setStartingRoom(); // Set starting room
         this.direction = setDirection(); // Clockwise or Counterclockwise
@@ -19,10 +18,11 @@ public class Orbiters extends Creatures{
      * Randomly generate starting room for orbiters from any exterior room on any level
      */
     protected void setStartingRoom() {
-        //Blinkers start anywhere on the 4th level
+        //Orbiters start in any outside room
 
         // Get map of possible rooms
-        Hashtable<String, Room> possible_room_map = this.dungeon.getMap();
+        Hashtable<String, Room> possible_room_map = new Hashtable<String, Room>();
+        possible_room_map.putAll(dungeon.getMap());
         possible_room_map.remove("0-1-1"); // remove entrace room
         possible_room_map.remove("1-1-1"); // remove 1st floor center room
         possible_room_map.remove("2-1-1"); // remove 2nd floor center room
@@ -57,78 +57,94 @@ public class Orbiters extends Creatures{
      * Replace abstract creature movement with Orbiter movement
      * Checks if a character is in the room, if so stays
      * If not, moves (clockwise or counterclockwise)
-     * 
-     * This one is trickier
      */
     @Override
     public void move(){
         Room current_room = this.getLocation();
+        System.out.println(current_room.getName());
         Integer level = current_room.getLevel();
         Integer row = current_room.getRow();
         Integer column = current_room.getColumn();
 
         Dungeon dungeon = new Dungeon();
 
-        Room new_room = this.getLocation(); // Initialize a room
+        //Room new_room;
+
         if (direction.equals("clockwise")) {
             // Orbit Clockwise
-            // I can't think of a better way to do this than manually.
             if (row == 0 && column == 0) {
                 String next_room_name = new String("(" + level + "-0-1)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 0 && column == 1) {
                 String next_room_name = new String("(" + level + "-0-2)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 0 && column == 2) {
                 String next_room_name = new String("(" + level + "-1-2)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 1 && column == 2) {
                 String next_room_name = new String("(" + level + "-2-2)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 2 && column == 2) {
                 String next_room_name = new String("(" + level + "-2-1)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 2 && column == 1) {
                 String next_room_name = new String("(" + level + "-2-0)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 2 && column == 0) {
                 String next_room_name = new String("(" + level + "-1-0)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 2 && column == 0) {
                 String next_room_name = new String("(" + level + "-1-0)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 1 && column == 0) {
                 String next_room_name = new String("(" + level + "-0-0)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             }
         } else {
             // Orbit Counterclockwise;
             if (row == 0 && column == 0) {
                 String next_room_name = new String("(" + level + "-1-0)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 1 && column == 0) {
                 String next_room_name = new String("(" + level + "-2-0)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 2 && column == 0) {
                 String next_room_name = new String("(" + level + "-2-1)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 2 && column == 1) {
                 String next_room_name = new String("(" + level + "-2-2)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 2 && column == 2) {
                 String next_room_name = new String("(" + level + "-1-2)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 1 && column == 2) {
                 String next_room_name = new String("(" + level + "-0-2)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 0 && column == 2) {
                 String next_room_name = new String("(" + level + "-0-1)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             } else if (row == 0 && column == 1) {
                 String next_room_name = new String("(" + level + "-0-0)");
-                new_room = dungeon.getRoom(next_room_name);
+                Room new_room = dungeon.getRoom(next_room_name);
+                this.setLocation(new_room);
             }
         }
-        this.setLocation(new_room);
+        System.out.println(this.getLocation().getName());
     }
 }
