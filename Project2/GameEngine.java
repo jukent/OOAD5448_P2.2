@@ -201,8 +201,6 @@ public class GameEngine {
     //if no other character is in the room, the moves according to
     //its profile specified in move()
     private void process1Creature(Creatures A){
-        System.out.println(A.getName() + "'s turn");
-
         //Get Room information and characters in the room
         Room current_room = A.getLocation();
         setOccupancy();

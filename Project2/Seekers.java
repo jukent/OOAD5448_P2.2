@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Seekers extends Creatures{
 
-    Seekers(int A,Dungeon map){
+    Seekers(int A,Dungeon map) {
         this.dungeon = map;
         super.ID = A;
         setStartingRoom();
