@@ -96,8 +96,7 @@ public class GameEngine {
             else{break;}
         }
 
-        printDungeon();
-        printCharacterStats();
+        printGameStatus();
     }
     
 
@@ -242,14 +241,6 @@ public class GameEngine {
     }
 
 
-    private void printLevel (Integer level) {
-        System.out.println("Level " + level);
-        for (int r = 0; r < 2; ++r) {
-            printRowString(level, r);
-        }
-    }
-
-
     private void printDungeon() {
         // Level 0 
         System.out.println("Level 0");
@@ -259,7 +250,10 @@ public class GameEngine {
 
         // Levels 1, 2, 3, 4
         for (int l = 1; l < 4; ++l) {
-            printLevel(l);
+            System.out.println("Level " + l);
+            for (int r = 0; r < 2; ++r) {
+                printRowString(l, r);
+            }
         }
     }
 
@@ -272,5 +266,11 @@ public class GameEngine {
             String char_stats = new String(name + " - " + g + " Treasure(s) - " + hp + " Damage");
             System.out.println(char_stats);
         }
+    }
+
+    private void printGameStatus() {
+        printDungeon();
+        printCharacterStats();
+        //printCreatureStats();
     }
 }
