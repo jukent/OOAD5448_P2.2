@@ -3,9 +3,7 @@ public class Brawlers extends Characters{
         super.ID = A;
         this.dungeon = map;
         this.Location = dungeon.getRoom("(0-1-1)");
+        this.FightBehavior = new Fight("Brawler");
         name = "Brawler";
-    }
-    public int fight(){
-        return DiceRolls.rollDice(6)+DiceRolls.rollDice(6)+2;
     }
 }

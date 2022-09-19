@@ -12,6 +12,7 @@ public class GameEngine {
 
     //Game variables that track win condition
     private int TreasureCount = 0;
+    private int DeadTreasureCount = 0;
     private int CreatureCount = 1;
     private int CharacterCount = 0;
     private int RoundCounter = 0;
@@ -43,6 +44,18 @@ public class GameEngine {
         ID++;
 
         // Creatures
+        CreatureList.add(new Seekers(ID,dungeon));
+        ID++;
+        CreatureList.add(new Orbiters(ID,dungeon));
+        ID++;
+        CreatureList.add(new Blinkers(ID,dungeon));
+        ID++;
+        CreatureList.add(new Seekers(ID,dungeon));
+        ID++;
+        CreatureList.add(new Orbiters(ID,dungeon));
+        ID++;
+        CreatureList.add(new Blinkers(ID,dungeon));
+        ID++;
         CreatureList.add(new Seekers(ID,dungeon));
         ID++;
         CreatureList.add(new Orbiters(ID,dungeon));
@@ -108,13 +121,16 @@ public class GameEngine {
     //Performs the character action of searching for treasure.
     //Adds to the characters treasure count
     private static void simulateTreasure(Characters A){
-        if(A.searchTreasure()>=10){
+        int Score = A.searchTreasure();
+        if(Score >=10){
             A.gainTreasure();
             System.out.print("Treasure Hunt: ");
-            System.out.println("Success!");
+            System.out.print(Score);
+            System.out.println(" Success!");
         }
         else{System.out.print("Treasure Hunt: ");
-        System.out.println("fail :(");}
+        System.out.print(Score);
+        System.out.println(" Fail :(");}
     }
     
 
@@ -129,6 +145,7 @@ public class GameEngine {
                 process1Character(I);//Process character
                 printer.printDungeon();
                 printCharacterStats();
+                printCreatureStats();
                 checkWinCondition();//Updates win conditions}
                 System.out.println("Press Enter To Continue...");
                 A.nextLine();
@@ -144,6 +161,7 @@ public class GameEngine {
                 setOccupancy();
                 printer.printDungeon();
                 printCharacterStats();
+                printCreatureStats();
                 process1Creature(I);
                 checkWinCondition();
                 System.out.println("Press Enter To Continue...");
@@ -282,12 +300,15 @@ public class GameEngine {
                 TempCharacterList.add(I);
                 TC += I.getTreasure();
             }
+            else if(I.getHealth() <= 0){
+                DeadTreasureCount += I.getTreasure();
+            }
         }
         CharacterList = TempCharacterList;
         setOccupancy(); // to remove dead creatures and characters
 
         //Update game tracking variables
-        TreasureCount = TC;
+        TreasureCount = TC + DeadTreasureCount;
         CreatureCount = CreatureList.size();
         CharacterCount = CharacterList.size();
 
@@ -333,6 +354,23 @@ public class GameEngine {
 
             String char_stats = new String(name + " - " + g + " Treasure(s) - " + hp + " Damage");
             System.out.println(char_stats);
+        }
+    }
+
+    private void printCreatureStats(){
+        ArrayList<String> Creatures= new ArrayList<String>();
+        Creatures.add("Orbiter");
+        Creatures.add("Seeker");
+        Creatures.add("Blinker");
+        String TempString;
+        int[] Counts = {0,0,0};
+        for (Creatures c:CreatureList) {
+            Counts[Creatures.indexOf(c.getName())] += 1;
+        }
+        System.out.println();
+        for(String A:Creatures){
+            TempString = new String(A + " - " + Counts[Creatures.indexOf(A)] + " Remaining");
+            System.out.println(TempString);
         }
     }
 }

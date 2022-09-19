@@ -7,13 +7,14 @@ public abstract class Creatures {
     protected Room Location;
 
     String name = new String("Creature");
+    Fight FightBehavior = new Fight("Creature");
 
     protected int HP = 1;
     protected int MoveCount = 1;
 
     public void showStatus(){}
     public int fight(){
-        return DiceRolls.rollDice(6)+DiceRolls.rollDice(6);
+        return FightBehavior.fight();
     }
     //Template function for specific move directions
     public void move(){}
