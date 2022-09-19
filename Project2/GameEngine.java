@@ -4,8 +4,8 @@ import java.util.Scanner;
 public class GameEngine {
 
     //Array list that contains all characters and Creatures
-    public ArrayList<Characters> CharacterList= new ArrayList<Characters>();
-    ArrayList<Creatures> CreatureList= new ArrayList<Creatures>();
+    protected ArrayList<Characters> CharacterList= new ArrayList<Characters>();
+    protected ArrayList<Creatures> CreatureList= new ArrayList<Creatures>();
 
     protected Dungeon dungeon = new Dungeon();
     Printer printer = new Printer(dungeon);
@@ -75,7 +75,7 @@ public class GameEngine {
     //Input a character and creature, and deducts health if 
     //a dice roll is larger than the other. If a character rolls
     // a -1, fight is skipped
-    private static void simulateFight(Characters A, Creatures B){
+    private void simulateFight(Characters A, Creatures B){
         int CharacterRoll = A.fight();
         int CreatureRoll = B.fight();
 
@@ -101,6 +101,7 @@ public class GameEngine {
 
         }
         else{System.out.println(" Fight Skipped");}
+        checkWinCondition();
     }
     
 
@@ -125,10 +126,11 @@ public class GameEngine {
                 System.out.flush();
                 showGameStatus();
                 setOccupancy();
+                process1Character(I);//Process character
                 printer.printDungeon();
                 printCharacterStats();
-                process1Character(I);//Process character
                 checkWinCondition();//Updates win conditions}
+                setOccupancy();
                 System.out.println("Press Enter To Continue...");
                 A.nextLine();
             }
@@ -139,16 +141,26 @@ public class GameEngine {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 showGameStatus();
+                System.out.println("Creature Movement");
                 setOccupancy();
                 printer.printDungeon();
                 printCharacterStats();
                 process1Creature(I);
                 checkWinCondition();
+                setOccupancy();
                 System.out.println("Press Enter To Continue...");
                 A.nextLine();
             }
             else{break;}
         }
+        /*System.out.print("\033[H\033[2J");
+        System.out.flush();
+        showGameStatus();
+        System.out.println("Monster Movement");
+        printer.printDungeon();
+        printCharacterStats();
+        System.out.println("Press Enter To Continue...");
+        A.nextLine();*/
     }
     
 
@@ -207,8 +219,12 @@ public class GameEngine {
                     simulateFight(A, c);
                 }
                 continue;
-            } else{
+            } 
+            else if(A.getLocation().getName() != "(0-1-1)"){
                 simulateTreasure(A);
+                break;
+            }
+            else{
                 break;
             }
         }
@@ -251,21 +267,25 @@ public class GameEngine {
     private void checkWinCondition(){
         int TC = 0;
 
+        ArrayList<Characters> TempCharacterList= new ArrayList<Characters>();
+        ArrayList<Creatures> TempCreatureList= new ArrayList<Creatures>();
+
         //Removes creatures from board if it runs out of health
         for(Creatures I: CreatureList){
-            if(I.getHealth() <= 0){
-                CreatureList.remove(I);
-                
+            if(I.getHealth() > 0){
+                TempCreatureList.add(I);
             }
         }
+        CreatureList = TempCreatureList;
         //Removes character from board if it runs out of health
         //Only counts treasures if player is alive
         for(Characters I: CharacterList){
-            if(I.getHealth() <= 0){
-                CharacterList.remove(I);
+            if(I.getHealth() > 0){
+                TempCharacterList.add(I);
+                TC += I.getTreasure();
             }
-            else{TC += I.getTreasure();}
         }
+        CharacterList = TempCharacterList;
         setOccupancy(); // to remove dead creatures and characters
 
         //Update game tracking variables
@@ -290,7 +310,6 @@ public class GameEngine {
             System.out.println("All adventurers defeated!");
         }
         else{EndCondition = true;}
-
     }
 
 
@@ -308,8 +327,7 @@ public class GameEngine {
 
     }
 
-
-    private void printCharacterStats() {
+    private void printCharacterStats(){
         for (Characters c:CharacterList) {
             String name = c.getName();
             Integer g = c.getTreasure();
