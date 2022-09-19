@@ -28,9 +28,6 @@ public class Orbiters extends Creatures{
         possible_room_map.remove("(2-1-1)"); // remove 2nd floor center room
         possible_room_map.remove("(3-1-1)"); // remove 3rd floor center room
         possible_room_map.remove("(4-1-1)"); // remove 4th floor center room
-
-
-        System.out.println(possible_room_map); // DEBUG
                 
         // Randomly select one of the rooms
         ArrayList<Room> starting_rooms = new ArrayList<Room>(possible_room_map.values());
