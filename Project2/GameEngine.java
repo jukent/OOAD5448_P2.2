@@ -130,7 +130,6 @@ public class GameEngine {
                 printer.printDungeon();
                 printCharacterStats();
                 checkWinCondition();//Updates win conditions}
-                setOccupancy();
                 System.out.println("Press Enter To Continue...");
                 A.nextLine();
             }
@@ -147,7 +146,6 @@ public class GameEngine {
                 printCharacterStats();
                 process1Creature(I);
                 checkWinCondition();
-                setOccupancy();
                 System.out.println("Press Enter To Continue...");
                 A.nextLine();
             }
