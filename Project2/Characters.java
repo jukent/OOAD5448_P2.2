@@ -10,6 +10,8 @@ public abstract class Characters {
     protected Room Location;
 
     String name = new String("Character");
+    TreasureHunt HuntBehavior = new TreasureHunt("Character");
+    Fight FightBehavior = new Fight("Character");
 
     protected int HP = 3;
     protected int TreasureCount = 0;
@@ -27,11 +29,11 @@ public abstract class Characters {
     }
 
     public int fight(){
-        return DiceRolls.rollDice(6)+DiceRolls.rollDice(6);
+        return FightBehavior.fight();
     }
 
     public int searchTreasure(){
-        return DiceRolls.rollDice(6)+DiceRolls.rollDice(6);
+        return HuntBehavior.searchTreasure();
     }
 
     //Template function for specific move directions

@@ -11,7 +11,7 @@ public class TreasureHunt {
         if(TreasureType == "Character"){
             return DiceRolls.rollDice(6)+DiceRolls.rollDice(6);
         }
-        if(TreasureType == "Thieve"){
+        if(TreasureType == "Thief"){
             return DiceRolls.rollDice(6)+DiceRolls.rollDice(6)+1;
         }
         else{return DiceRolls.rollDice(6)+DiceRolls.rollDice(6);}
