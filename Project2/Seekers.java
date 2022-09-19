@@ -20,7 +20,7 @@ public class Seekers extends Creatures{
         // Get new map of possible rooms
         Hashtable<String, Room> possible_room_map = new Hashtable<String, Room>();
         possible_room_map.putAll(dungeon.getMap());
-        possible_room_map.remove("0-1-1"); // remove entrace room
+        possible_room_map.remove("(0-1-1)"); // remove entrace room
                 
         // Randomly select one of the rooms
         ArrayList<Room> starting_rooms = new ArrayList<Room>(possible_room_map.values());

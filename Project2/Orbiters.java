@@ -23,11 +23,14 @@ public class Orbiters extends Creatures{
         // Get map of possible rooms
         Hashtable<String, Room> possible_room_map = new Hashtable<String, Room>();
         possible_room_map.putAll(dungeon.getMap());
-        possible_room_map.remove("0-1-1"); // remove entrace room
-        possible_room_map.remove("1-1-1"); // remove 1st floor center room
-        possible_room_map.remove("2-1-1"); // remove 2nd floor center room
-        possible_room_map.remove("3-1-1"); // remove 3rd floor center room
-        possible_room_map.remove("4-1-1"); // remove 4th floor center room
+        possible_room_map.remove("(0-1-1)"); // remove entrace room
+        possible_room_map.remove("(1-1-1)"); // remove 1st floor center room
+        possible_room_map.remove("(2-1-1)"); // remove 2nd floor center room
+        possible_room_map.remove("(3-1-1)"); // remove 3rd floor center room
+        possible_room_map.remove("(4-1-1)"); // remove 4th floor center room
+
+
+        System.out.println(possible_room_map); // DEBUG
                 
         // Randomly select one of the rooms
         ArrayList<Room> starting_rooms = new ArrayList<Room>(possible_room_map.values());
@@ -35,6 +38,7 @@ public class Orbiters extends Creatures{
         int random_index = random.nextInt(starting_rooms.size());
 
         Room new_room = starting_rooms.get(random_index);
+
         this.setLocation(new_room);
     }
 
