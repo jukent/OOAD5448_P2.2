@@ -6,9 +6,9 @@ public class GameEngine {
     //Array list that contains all characters and Creatures
     protected ArrayList<Characters> CharacterList= new ArrayList<Characters>();
     protected ArrayList<Creatures> CreatureList= new ArrayList<Creatures>();
-
+    private String Output = "ShowAll"; //OneScreen,ShowEnding,ShowAll
     protected Dungeon dungeon = new Dungeon();
-    Printer printer = new Printer(dungeon);
+    Printer printer = new Printer(dungeon,Output);
 
     //Game variables that track win condition
     private int TreasureCount = 0;
@@ -17,16 +17,20 @@ public class GameEngine {
     private int CharacterCount = 0;
     private int RoundCounter = 0;
     private int ID = 0;
+    
     private boolean EndCondition = true;
     private Scanner A = new java.util.Scanner(System.in);
 
 
     //Constructor to initialize board.
-    public GameEngine(){
+    public GameEngine(String OutputType){
+        Output = OutputType;
+        printer = new Printer(dungeon,Output);
         populateEntities();
+        if(Output != "ShowNone"){
         System.out.println("Starting Game!");
         System.out.println("Press Enter To Continue...");
-        A.nextLine();
+        A.nextLine();}
         
     }
 
@@ -76,7 +80,6 @@ public class GameEngine {
     //Run the game by simulating processing each turn which includes
     //characters and creatures. Ends if the end condition is completed
     public void runGame(){
-        checkWinCondition();
         while(EndCondition){
             RoundCounter++;
             processTurn();
@@ -95,42 +98,48 @@ public class GameEngine {
         if(CharacterRoll > 0){
             if(CharacterRoll > CreatureRoll){
                 B.loseHealth(1);
+                if(Output != "ShowNone"){
                 System.out.print("Fight: ");
                 System.out.print(A.getClass().getSimpleName() + ": ");
                 System.out.print(CharacterRoll);
                 System.out.print(" "+ B.getClass().getSimpleName()+": ");
                 System.out.print(CreatureRoll);
                 System.out.println(" "+ A.getClass().getSimpleName() +" Wins :D ");
-            }
+            }}
             else if (CharacterRoll < CreatureRoll){
                 A.loseHealth(1);
+                if(Output != "ShowNone"){
                 System.out.print("Fight: ");
                 System.out.print(A.getClass().getSimpleName() + ": ");
                 System.out.print(CharacterRoll);
                 System.out.print(" "+ B.getClass().getSimpleName()+": ");
                 System.out.print(CreatureRoll);
-                System.out.println(" Creature Wins :( ");
+                System.out.println(" Creature Wins :( ");}
             }
 
         }
-        else{System.out.println(" Fight Skipped");}
-        checkWinCondition();
+        else{
+            if(Output != "ShowNone"){
+            System.out.println("Fight Skipped");}}
     }
     
 
     //Performs the character action of searching for treasure.
     //Adds to the characters treasure count
-    private static void simulateTreasure(Characters A){
+    private void simulateTreasure(Characters A){
         int Score = A.searchTreasure();
         if(Score >=10){
             A.gainTreasure();
+            if(Output != "ShowNone"){
             System.out.print("Treasure Hunt: ");
             System.out.print(Score);
-            System.out.println(" Success!");
+            System.out.println(" Success!");}
         }
-        else{System.out.print("Treasure Hunt: ");
-        System.out.print(Score);
-        System.out.println(" Fail :(");}
+        else{
+            if(Output != "ShowNone"){
+                System.out.print("Treasure Hunt: ");
+                System.out.print(Score);
+                System.out.println(" Fail :(");}}
     }
     
 
@@ -138,34 +147,42 @@ public class GameEngine {
     private void processTurn(){
         for(Characters I: CharacterList){
             if(EndCondition){//Stops processing characters if end condition is met
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-                showGameStatus();
+                if(Output == "OneScreen"){
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();}
+                if(Output == "OneScreen" || Output == "ShowAll"){
+                    showGameStatus();
+                    System.out.println("Creature Movement");
+                    printer.printDungeon();
+                    printCharacterStats();
+                    printCreatureStats();
+                    System.out.println();}
+
                 setOccupancy();
-                process1Character(I);//Process character
-                printer.printDungeon();
-                printCharacterStats();
-                printCreatureStats();
+                process1Character(I);//Process character                showGameStatus();
                 checkWinCondition();//Updates win conditions}
-                System.out.println("Press Enter To Continue...");
-                A.nextLine();
+                printer.pause();
+                
             }
             else{break;}
         }
         for(Creatures I: CreatureList){
             if(EndCondition){//Stops processing creatures if end condition is met
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-                showGameStatus();
-                System.out.println("Creature Movement");
+                if(Output == "OneScreen"){
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();}
+                if(Output == "OneScreen" || Output == "ShowAll"){
+                    showGameStatus();
+                    System.out.println("Creature Movement");
+                    printer.printDungeon();
+                    printCharacterStats();
+                    printCreatureStats();
+                    System.out.println();}
+
                 setOccupancy();
-                printer.printDungeon();
-                printCharacterStats();
-                printCreatureStats();
                 process1Creature(I);
                 checkWinCondition();
-                System.out.println("Press Enter To Continue...");
-                A.nextLine();
+                printer.pause();
             }
             else{break;}
         }

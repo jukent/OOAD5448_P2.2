@@ -1,11 +1,15 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Printer {
 
     Dungeon dungeon;
+    String OutputType; //OneScreen,ShowAll,ShowEnding
+    private Scanner A = new java.util.Scanner(System.in);
 
-    Printer(Dungeon dungeon) {
+    Printer(Dungeon dungeon,String Output) {
         this.dungeon = dungeon;
+        this.OutputType = Output;
     }
 
 
@@ -61,4 +65,10 @@ public class Printer {
             printLevel(l);
         }
     }
-}
+
+
+    public void pause(){
+        if(OutputType == "OneScreen"){
+        System.out.println("Press Enter To Continue...");
+        A.nextLine();}
+}}
