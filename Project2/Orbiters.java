@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
 
-public class Orbiters extends Creatures{
+public class Orbiters extends Creatures{//Example of inheritance
 
     String direction = "clockwise"; // Need to add a default
 

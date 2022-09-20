@@ -3,6 +3,11 @@ import java.util.Random;
 
 public abstract class Characters {
     public int ID = 0;
+    //example of abstraction. characters all have their information grouped together
+    //This was planned in the initial UML design, and was made abstract
+    //because it allows a user to interact with characters without
+    //knowing the full details.
+
 
     //room location stored Room object accessed by name (level-row-column)
     //Level Range [0-4], Column range [1-3], Row Range [1-3]

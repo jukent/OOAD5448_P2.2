@@ -1,4 +1,4 @@
-public class Brawlers extends Characters{
+public class Brawlers extends Characters{ //Example of inheritance
     Brawlers(int A,Dungeon map){
         super.ID = A;
         this.dungeon = map;

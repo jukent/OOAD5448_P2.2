@@ -2,7 +2,12 @@ public class Fight {
         
     protected String FightType;
 
-    public Fight(String Type){
+    public Fight(String Type){//Encapsulation example
+        //This fight class represents an example of encapsulation. 
+        //This class hides the behavior fight behavior for each character
+        //and creature. Since this varies so much, we encapsulate it in its own
+        //class. This is just like the Strategy design pattern. 
+        //"Encapsulate what varies"
         FightType = Type;
     }
 

@@ -1,4 +1,4 @@
-public class Thieves extends Characters{
+public class Thieves extends Characters{//Example of inheritance
     Thieves(int A,Dungeon map){
         this.dungeon = map;
         this.Location = dungeon.getRoom("(0-1-1)");

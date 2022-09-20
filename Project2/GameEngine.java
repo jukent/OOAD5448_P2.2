@@ -7,8 +7,16 @@ public class GameEngine {
     protected ArrayList<Characters> CharacterList= new ArrayList<Characters>();
     protected ArrayList<Creatures> CreatureList= new ArrayList<Creatures>();
     private String Output = "ShowAll"; //OneScreen,ShowEnding,ShowAll
-    protected Dungeon dungeon = new Dungeon();
+    protected Dungeon dungeon = new Dungeon();//Example of identity
     Printer printer = new Printer(dungeon,Output);
+
+    //Dungeon is an example of identity. While we could create an instance
+    //of dungeon in each character, by having the same instance of dungeon
+    //passed to the characters, we can assure that each character
+    //has a reference to the same map. This eliminates any issues that may come
+    //from specific map generations. We pass its identity to all characters
+    //and creatures. Otherwise, we would have an many dungeons of the same 
+    //type, but not the same identity
 
     //Game variables that track win condition
     private int TreasureCount = 0;
@@ -37,6 +45,11 @@ public class GameEngine {
 
     //Populate CharacterList and CreatureList with characters
     private void populateEntities(){
+        //Example of polymorphism. 
+        //In this case I am adding subclasses to an arraylist
+        //but the array list is made of an abstract class
+        //All characters or creatures behave as the instance
+        //of their abstract class
         // Characters
         CharacterList.add(new Runners(ID,dungeon));
         ID++;
@@ -47,6 +60,7 @@ public class GameEngine {
         CharacterList.add(new Brawlers(ID,dungeon));
         ID++;
 
+        //Also an example of polymorphism
         // Creatures
         CreatureList.add(new Seekers(ID,dungeon));
         ID++;
@@ -333,17 +347,17 @@ public class GameEngine {
         if(TreasureCount >= 10){//10 Treasures
             EndCondition = false;
             System.out.println("Game Over");
-            System.out.println("Adventurers collected 10 treasures!");
+            System.out.println("all treasure found");
         }
         else if(CreatureCount <= 0){//All creatures eliminated
             EndCondition = false;
             System.out.println("Game Over");
-            System.out.println("Adventurers defeated all creatures!");
+            System.out.println("all creatures eliminated");
         }
         else if(CharacterCount <= 0){//All adventureers defeated
             EndCondition = false;
             System.out.println("Game Over");
-            System.out.println("All adventurers defeated!");
+            System.out.println(" all Adventurers eliminated");
         }
         else{EndCondition = true;}
     }

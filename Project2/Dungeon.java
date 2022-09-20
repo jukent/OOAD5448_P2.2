@@ -2,7 +2,10 @@ import java.util.Hashtable;
 
 public class Dungeon {
     private Hashtable<String, Room> map; //the map of this dungeon - Hashtable of room names mapped to Rooms
-    
+    //Also example of abstraction. Some methods are made private to prevent users
+    //from accessing information that is unnecassary. This class contains
+    //only the needed information to access it from the outside. 
+    //Any additional information is hidden in private methods.
 
     /**
      * Constructs the Dungeon object which contains a map of all rooms
