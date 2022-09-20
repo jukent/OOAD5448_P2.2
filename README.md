@@ -20,7 +20,7 @@ Creatures:
 
 ## How to Run
 
-To run the game, execute `Main.java` within the project. The terminal will then prompt you to press 'Enter' to begin the game, and continuosly to begin the next turn.
+To run the game, execute `Main.java` within the project. The terminal will then prompt you to press 'Enter' to begin the game.
 
 ## Results
 
@@ -28,11 +28,11 @@ Captured output for a single simulated game is in `SingleGameRun.txt` <br/>
 Final summary captured output from 30 runs is in `MultipleGameRun.txt` <br/>
 
 The results of the 30-game runs can be summarized as: <br/>
-Characters won by finding 10 Treasures X times <br/>
-Characters won by defeating all creatures X times <br/>
-Characters lost by all being defeated X times <br/>
+Characters won by finding 10 Treasures 29 times. <br/>
+Characters won by defeating all creatures 0 times. <br/>
+Characters lost by all being defeated 1 time. <br/>
 
-From these results we can see that the game needs further tuning. 
+From these results we can see that the game needs further tuning. When there were less creatures, sometimes characters would defeat all creatures, but still, the game usually ended when all treasure was found.
 
 ## Identified OO Elements
 
