@@ -36,17 +36,17 @@ From these results we can see that the game needs further tuning.
 
 ## Identified OO Elements
 
-**Inheritance** 
+**Inheritance** is demonstrated in this codebase with our use of the abstract classes `Characters` and `Creatures` and the classes that inherit from them: `Brawlers`, `Sneakers`, `Runners`, `Thieves` and `Blinkers`, `Orbiters`, `Seekers`, respectively. These concrete classes acquire attribute and method properties from their parent abstract class.
 
-**Polymorphism** 
+**Polymorphism** lets you treat objects as instances of abstract classes while still accessing specific class behavior. A clear example of this OO element is when we call the `populateEntities()` method from within the `GameEngine` Class. Here we are able to Characters to a `CharactureList` and Creatures to a `CreatureList` despite the "form" of each Character and Creature being different. This allows us to then run through these lists processing the entities' turn with their specific moving, fighting, and treasure hunting behavior without needeing to worry about the differences in their moving, fighting, or treasurehunting behaviors.
 
-**Cohesion** 
+**Cohesion** is closely associated with making sure each class is designed with a single purpose. It refers to how closely related the elements of the code are, and highlights that the more related each element is the harder it is to maintain code as small changes have ripple effects throughout the codebase. This project's best example of cohesion is in the `DiceRolls` inteface. `DiceRolls` is only responsible for rolling dice. It doesn't worry about summing up two dice rolls or adding any buffs. This interface can be accessed from anywhere, and those buffs and combinations of dice rolls are handled by fighting and treasure hunting methods elsewhere.
 
-**Identity**
+**Identity** is what distinguishes different objects in memory. It is possible to have multiple objects with identical attributes but different identity. This was the challenge we had to address when having multiple Hashtables of Room objects. There is the main Dungeon, and then there are sub-maps of the Dungeon with valid Creature locations. One bug that we encountered in the code was accidentally generating unique Room objects in those sub-maps of the Dungeon. So while the Creatures had a location that shared a name with a real dungeon Room, they did not appear on the map or encounter any Characters because the identy of the two rooms was different. We addressed this by passing the Dungeon object around instead of creating a new Dungeon to call its methods.
 
-**Encapsulation**
+**Encapsulation** refers to objects having attributes and methods binded into a single unit, and the techniques used to protect implementation details or other information from within a unit from other parts of the system. Encapsulation occurs during implementation. This is demonstrated in the `Fight` and `TreasureHunt` classes which hide the unique behavior associated with each Character or Creature. This is as in the Strategy design pattern "Encapsulate What Varies."
 
-**Abstraction**
+**Abstraction** allows parts of the system to not have to think about the whole picture by chosing what is relevant and should be exposed at each design level. Abstraction occurs during the design process. During our initial UML design, we planned abstraction in the use of Character and Creature abstract classes. Objects of these parent classes have their information grouped together, allowing the user to interact with each Character or Creature without knowing the full details of their unique methods. Abstraction is also demonstrated where we chose to make methods private, such as the `Dungeon.generateMap()` method. Users can still access the Dungeon map with `Dungeon.getMap()` but only this object can generate the map.
 
 ## Changes to UML Diagram
 
@@ -59,3 +59,9 @@ We assumed that every Character could check for treasures in every Room multiple
 ## Citations
 
 Throughout the project we looked at many online resources for references, but none of the code was taken directly from a different source. Here are some of the more useful resources we used:
+
+We learned about the `putAll()` method, necessary for creating the sub-maps of the Dungeon used for setting the Creature starting locations and movement from [Geeks for Geeks: "How to Copy Map Content to Another Hashtable in Java?](https://www.geeksforgeeks.org/how-to-copy-map-content-to-another-hashtable-in-java/).
+
+This Youtube series, while having different requirements from our project, was intrigal to feeling more confident about making a text-based adventure game - [Code with Huw: "Program a Text Adventure Game in Java](https://www.youtube.com/playlist?list=PLZHx5heVfgEvT5BD8TgLmGrr-V64pX7MD). I don't think any code from this series was actually implemented though.
+
+Instructions on how to get a random element from a Hashtable (by converting either values or keys to an ArrayList first) came from this [Stack Overflow question](https://stackoverflow.com/questions/38248381/pick-a-random-element-from-a-hashtable). This is used for most Character and Creature movement behaviors and Creature starting locations.
