@@ -20,7 +20,7 @@ Creatures:
 
 ## How to Run
 
-To run the game, execute `Main.java` within the project. The terminal will then prompt you to press 'Enter' to begin the game, and continuosly to begin the next turn.
+To run the game, execute `Main.java` within the project. The terminal will then prompt you to press 'Enter' to begin the game.
 
 ## Results
 
