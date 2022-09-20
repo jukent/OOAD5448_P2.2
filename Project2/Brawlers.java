@@ -1,4 +1,5 @@
-public class Brawlers extends Characters { // Example of inheritance
+public class Brawlers extends Characters { 
+    // Example of inheritance
     
     /**
      * @param A: int
