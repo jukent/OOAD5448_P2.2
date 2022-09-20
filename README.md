@@ -32,7 +32,7 @@ Characters won by finding 10 Treasures 29 times. <br/>
 Characters won by defeating all creatures 0 times. <br/>
 Characters lost by all being defeated 1 time. <br/>
 
-From these results we can see that the game needs further tuning. When there were less creatures, sometimes would defeat all creatures, but still then the game usually ended when all treasure was found.
+From these results we can see that the game needs further tuning. When there were less creatures, sometimes characters would defeat all creatures, but still, the game usually ended when all treasure was found.
 
 ## Identified OO Elements
 
