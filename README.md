@@ -62,6 +62,6 @@ Throughout the project we looked at many online resources for references, but no
 
 We learned about the `putAll()` method, necessary for creating the sub-maps of the Dungeon used for setting the Creature starting locations and movement from [Geeks for Geeks: "How to Copy Map Content to Another Hashtable in Java?](https://www.geeksforgeeks.org/how-to-copy-map-content-to-another-hashtable-in-java/).
 
-This Youtube series, while having different requirements from our project, was intrigal to feeling more confident about making a text-based adventure game - [Code with Huw: "Program a Text Adventure Game in Java](https://www.youtube.com/playlist?list=PLZHx5heVfgEvT5BD8TgLmGrr-V64pX7MD). No code from this series was actually implemented though.
+This Youtube series, while having different requirements from our project, was integral to feeling more confident about making a text-based adventure game - [Code with Huw: "Program a Text Adventure Game in Java](https://www.youtube.com/playlist?list=PLZHx5heVfgEvT5BD8TgLmGrr-V64pX7MD). No code from this series was actually implemented though.
 
 Instructions on how to get a random element from a Hashtable (by converting either values or keys to an ArrayList first) came from this [Stack Overflow question](https://stackoverflow.com/questions/38248381/pick-a-random-element-from-a-hashtable). This is used for most Character and Creature movement behaviors and Creature starting locations.
