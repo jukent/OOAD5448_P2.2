@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class Room {
 
-    private int level, row, column; // the level, row, and column coordinates for this room - Integers
-    private String name; // the name  of this room, i.e. "(2-0-0)" - String
-    private ArrayList<String> exits; // list of neighboring room names i.e. ["(2-1-0)","(2-0-1)"] 
+    private int level, row, column; // The level, row, and column coordinates for this room - Integers
+    private String name; // The name  of this room, i.e. "(2-0-0)" - String
+    private ArrayList<String> exits; // ArrayList of neighboring room names i.e. ["(2-1-0)","(2-0-1)"] 
     
     private ArrayList<Characters> characters_in_room;
     private ArrayList<Creatures> creatures_in_room;
@@ -34,6 +34,97 @@ public class Room {
 
         this.characters_in_room = new ArrayList<Characters>();
         this.creatures_in_room = new ArrayList<Creatures>();
+    }
+
+
+    /**
+     * @return name: String
+     * 
+     * Let other classes grab a room's name
+     */
+    public String getName() {
+        return name;
+    }
+
+
+    /**
+     * @return exits: ArrayList<String> (cardinal directions, neighboring room names)
+     * 
+     * Let other classess access a room's neighboring rooms (and in what direction if we need that)
+     */
+    public ArrayList<String> getExits() {
+        return exits;
+    }
+
+
+    /**
+     * @return level: Integer
+     * 
+     * Let other classess easily access a room's level
+     * Might be needed for creatures whose movement may be limited to one level.
+     */
+    public Integer getLevel() {
+        return level;
+    }
+
+    
+    /**
+     * @return row: Integer
+     * 
+     * Let other classess easily access a room's row
+     */
+    public Integer getRow() {
+        return row;
+    }
+
+
+    /**
+     * @return column: Integer
+     * 
+     * Let other classess easily access a room's column
+     */
+    public Integer getColumn() {
+        return column;
+    }
+
+
+    /**
+     * @return ArrayList<Characters>
+     * 
+     * This method returns an ArrayList of the Characters in the Room
+     */
+    public ArrayList<Characters> getCharactersInRoom() {
+        return this.characters_in_room;
+    }
+
+
+    /**
+     * @param characters_in_room: ArrayList<Characters>
+     * 
+     * This method stores Room occupancy as an ArrayList of Characters in the Room.
+     */
+    public void setCharactersInRoom(ArrayList<Characters> characters_in_room) {
+        this.characters_in_room = characters_in_room;
+    }
+
+
+    /**
+     * @return ArrayList<Creatures>
+     * 
+     * This method returns an ArrayList of the Creatures in the Room
+     */
+    public ArrayList<Creatures> getCreaturesInRoom() {
+        return this.creatures_in_room;
+    }
+
+
+    /**
+     * @param creaturs_in_room: ArrayList<Creatures>
+     * 
+     * This method stores Room occupancy as an ArrayList of Creatures in the Room.
+     */
+    public void setCreaturesInRoom(ArrayList<Creatures> creatures_in_room) {
+        this.creatures_in_room = creatures_in_room;
     }
 
 
@@ -99,70 +190,5 @@ public class Room {
             }
         }
         return exits;
-    }
-
-
-    /**
-     * @return name: String
-     * 
-     * Let other classes grab a room's name
-     */
-    public String getName() {
-        return name;
-    }
-
-
-    /**
-     * @return exits: ArrayList<String> (cardinal directions, neighboring room names)
-     * 
-     * Let other classess access a room's neighboring rooms (and in what direction if we need that)
-     */
-    public ArrayList<String> getExits() {
-        return exits;
-    }
-
-    
-    /**
-     * @return level: Integer
-     * 
-     * Let other classess easily access a room's level
-     * Might be needed for creatures whose movement may be limited to one level.
-     */
-    public Integer getLevel() {
-        return level;
-    }
-
-    /**
-     * @return row: Integer
-     * 
-     * Let other classess easily access a room's row
-     */
-    public Integer getRow() {
-        return row;
-    }
-
-    /**
-     * @return column: Integer
-     * 
-     * Let other classess easily access a room's column
-     */
-    public Integer getColumn() {
-        return column;
-    }
-
-    public ArrayList<Characters> getCharactersInRoom() {
-        return this.characters_in_room;
-    }
-
-    public void setCharactersInRoom(ArrayList<Characters> characters_in_room) {
-        this.characters_in_room = characters_in_room;
-    }
-
-    public ArrayList<Creatures> getCreaturesInRoom() {
-        return this.creatures_in_room;
-    }
-
-    public void setCreaturesInRoom(ArrayList<Creatures> creatures_in_room) {
-        this.creatures_in_room = creatures_in_room;
     }
 }

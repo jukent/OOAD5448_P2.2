@@ -2,37 +2,51 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
 
-public class Seekers extends Creatures{//Example of inheritance
+public class Seekers extends Creatures {
+    // Example of inheritance
 
-    Seekers(int A,Dungeon map) {
+
+    /**
+     * @param A: int
+     * @param map: Dungeon
+     * 
+     * Construct a Seeker with ID `A` and the Dungeon.
+     */
+    Seekers(int A, Dungeon map) {
         this.dungeon = map;
         super.ID = A;
         setStartingRoom();
         name = "Seeker";
     }
 
+
     /**
      * Randomly generate starting room for orbiters from any exterior room on any level
      */
     protected void setStartingRoom() {
-        //Seekers start anywhere in dungeon
-
-        // Get new map of possible rooms
+        // Get new map of possible Rooms
         Hashtable<String, Room> possible_room_map = new Hashtable<String, Room>();
         possible_room_map.putAll(dungeon.getMap());
-        possible_room_map.remove("(0-1-1)"); // remove entrace room
+        possible_room_map.remove("(0-1-1)"); // Remove entrace room
                 
-        // Randomly select one of the rooms
+        // Randomly select one of the Rooms
         ArrayList<Room> starting_rooms = new ArrayList<Room>(possible_room_map.values());
+        
         Random random = new Random();
         int random_index = random.nextInt(starting_rooms.size());
 
         Room new_room = starting_rooms.get(random_index);
+
+        // Start there
         this.setLocation(new_room);
     }
 
+
     /* (non-Javadoc)
      * @see Creatures#move()
+     * 
+     * Seekers move by staying still and waiting for a Character to be in a nearby Room
+     * Then they move to the room with the Character.
      */
     @Override
     public void move(){
@@ -40,10 +54,13 @@ public class Seekers extends Creatures{//Example of inheritance
 
         // List of nearby rooms
         ArrayList<String>exits = current_room.getExits();
-        // Convert Room-Name-Strings to Rooms
+        
+        // Populate an ArrayList of populated nearby rooms
         ArrayList<Room> populated_exits = new ArrayList<>();
         for (String x: exits) {
+            // Convert Exit Room-Name Strings to Rooms 
             Room exit_room = dungeon.getRoom(x);
+            // Check if a Character is in the Exit Room
             ArrayList<Characters> characters_in_room = exit_room.getCharactersInRoom();
             if (characters_in_room.size() > 0) {
                 // If character in room add it to possible exit_rooms
