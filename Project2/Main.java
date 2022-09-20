@@ -7,8 +7,8 @@ public class Main{
      * This is the main method that runs the game.
      */
     public static void main(String[] args) {
-        //run1Game();
-        runNGame(30);
+        run1Game();
+        //runNGame(30);
     }
 
 
