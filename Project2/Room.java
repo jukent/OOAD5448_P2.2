@@ -21,6 +21,11 @@ public class Room {
      * and a mapping of valid standard exit room names
      */
     public Room(int level, int row, int column) {
+        // An example of identity
+        // A lot of effort is made throughout the code to make sure identical Room objects
+        // Can be access from either the Dungeon object or from subsets (seen in the new Hashtables in Creature movement)
+
+
         // constructor
         this.level = level;
         this.row = row;
