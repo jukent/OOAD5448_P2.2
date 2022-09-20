@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
 
-public class Seekers extends Creatures{
+public class Seekers extends Creatures{//Example of inheritance
 
     Seekers(int A,Dungeon map) {
         this.dungeon = map;

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
 
-public class Blinkers extends Creatures{
+public class Blinkers extends Creatures{//Example of inheritance
     Blinkers(int A,Dungeon map){
         super.ID = A;
         this.dungeon = map;
