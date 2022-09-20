@@ -1,8 +1,8 @@
 public abstract class Creatures {
     public int ID = 0;
 
-    //room location stored Room object accessed by name (level-row-column)
-    //Level Range [0-4], Column range [1-3], Row Range [1-3]
+    // Location stored Room object accessed by name (level-row-column)
+    // Level Range [0-4], Column range [1-3], Row Range [1-3]
     Dungeon dungeon;
     protected Room Location;
 
@@ -12,38 +12,84 @@ public abstract class Creatures {
     protected int HP = 1;
     protected int MoveCount = 1;
 
-    public void showStatus(){}
-    public int fight(){
+
+    /**
+     *  This method displays a Creature's status.
+     */
+    public void showStatus() {}
+
+
+    /**
+     * @return int
+     * 
+     * This method calls a Creature's fight behavior 
+     * and returns their "fight roll" as an integer.
+     */
+    public int fight() {
         return FightBehavior.fight();
     }
-    //Template function for specific move directions
-    public void move(){}
 
-    //Manually set characters location
-    //No influence from other rooms
-    public void setLocation(Room room){
+
+    /**
+     * Template function for specific move directions
+     * to be overwritten by more specific behavior.
+     */
+    public void move() {}
+
+
+    /**
+     * @param room: Room
+     * 
+     * Manually set Creature's location without influence from other Rooms
+     */
+    public void setLocation(Room room) {
         this.Location = room;
     }
 
-    //Manually set characters location
-    //No influence from other rooms
-    public Room getLocation(){
+
+    /**
+     * @return Room
+     * 
+     * This method returns a Creature's location.
+     */
+    public Room getLocation() {
         return this.Location;
     }
 
-    public void loseHealth(int n){
-        this.HP = this.HP -n;
+
+    /**
+     * @param n: int
+     * 
+     * This method decreases a Creature's health by the integer 'n'.
+     */
+    public void loseHealth(int n) {
+        this.HP = this.HP - n;
     }
 
-    public int getHealth(){
+
+    /**
+     * @return int
+     * 
+     * This method returns a Creature's health.
+     */
+    public int getHealth() {
         return this.HP;
     }
 
 
-    protected void setStartingRoom(){}
-
+    /**
+     * @return String
+     * 
+     * This method returns a Creature's name.
+     */
     public String getName() {
         return this.name;
     }
 
+
+    /**
+     * The abstract method sets a Creature's starting room
+     * to be overwritten with more specific Creature behavior.
+     */
+    protected void setStartingRoom() {}
 }
