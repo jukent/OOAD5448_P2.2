@@ -2,7 +2,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
 
-public class Blinkers extends Creatures { // Example of inheritance
+public class Blinkers extends Creatures { 
+    // Example of inheritance
     
     /**
      * @param A: int
