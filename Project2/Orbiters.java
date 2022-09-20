@@ -114,14 +114,14 @@ public class Orbiters extends Creatures {
     protected void setStartingRoom() {
         // Get map of possible rooms pointing to identical Room objects as in main dungeon.
         Hashtable<String, Room> possible_room_map = new Hashtable<String, Room>();
-        possible_room_map.putAll(dungeon.getMap());
+        possible_room_map.putAll(dungeon.getMap()); // Learned method from Geeks for Geeks: "How to Copy Map Content to Another Hashtable in Java?(https://www.geeksforgeeks.org/how-to-copy-map-content-to-another-hashtable-in-java/)
         possible_room_map.remove("(0-1-1)"); // remove entrace room
         possible_room_map.remove("(1-1-1)"); // remove 1st floor center room
         possible_room_map.remove("(2-1-1)"); // remove 2nd floor center room
         possible_room_map.remove("(3-1-1)"); // remove 3rd floor center room
         possible_room_map.remove("(4-1-1)"); // remove 4th floor center room
                 
-        // Randomly select one of the rooms
+        // Randomly select one of the rooms - learned from Stack Overflow question (https://stackoverflow.com/questions/38248381/pick-a-random-element-from-a-hashtable)
         ArrayList<Room> starting_rooms = new ArrayList<Room>(possible_room_map.values());
         Random random = new Random();
         int random_index = random.nextInt(starting_rooms.size());
