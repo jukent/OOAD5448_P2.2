@@ -29,7 +29,7 @@ public class TreasureHunt {
         }
         if (TreasureType == "Thief") {
             return DiceRolls.rollDice(6) + DiceRolls.rollDice(6) + 1;
-        } else {
+        } else { // I'm a little confused here -- isn't this a repeat of above?
             return DiceRolls.rollDice(6) + DiceRolls.rollDice(6);
         }
     }
