@@ -10,5 +10,3 @@ Each contributor will work on feature branches within their own fork of this rep
 Contributions are made to the upstream main repository via Pull Requests, with at least one approving review before merging.
 
 Next steps are outlined in Issues and assigned to contributors to indicate active work.
-
-**This document to be updated with more specific application building or workflow steps as our project is more defined**
