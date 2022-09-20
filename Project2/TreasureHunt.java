@@ -25,11 +25,12 @@ public class TreasureHunt {
      */
     public int searchTreasure() {
         if (TreasureType == "Character") {
+            // Included for error prevention
             return DiceRolls.rollDice(6) + DiceRolls.rollDice(6);
         }
         if (TreasureType == "Thief") {
             return DiceRolls.rollDice(6) + DiceRolls.rollDice(6) + 1;
-        } else { // I'm a little confused here -- isn't this a repeat of above?
+        } else { 
             return DiceRolls.rollDice(6) + DiceRolls.rollDice(6);
         }
     }
