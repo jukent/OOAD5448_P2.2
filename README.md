@@ -65,3 +65,7 @@ We learned about the `putAll()` method, necessary for creating the sub-maps of t
 This Youtube series, while having different requirements from our project, was integral to feeling more confident about making a text-based adventure game - [Code with Huw: "Program a Text Adventure Game in Java](https://www.youtube.com/playlist?list=PLZHx5heVfgEvT5BD8TgLmGrr-V64pX7MD). No code from this series was actually implemented though.
 
 Instructions on how to get a random element from a Hashtable (by converting either values or keys to an ArrayList first) came from this [Stack Overflow question](https://stackoverflow.com/questions/38248381/pick-a-random-element-from-a-hashtable). This is used for most Character and Creature movement behaviors and Creature starting locations.
+
+Instructions on how to do a pause screen for use in debugging and running the game.[Stack Overflow question] (https://stackoverflow.com/questions/1401481/how-to-do-a-system-pause-in-java-for-debugging ) Used for pause behavior
+
+Instructions on how to get a random integer within a specific range. This is used throughout the code as D6 rolls, to choose actions, or to choose directions.[Stack Overflow question] (https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java)
