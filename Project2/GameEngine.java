@@ -8,7 +8,7 @@ public class GameEngine {
     protected ArrayList<Creatures> CreatureList = new ArrayList<Creatures>();
     private String Output = "ShowAll"; // OneScreen,ShowEnding,ShowAll
     protected Dungeon dungeon = new Dungeon(); // Example of identity
-    Printer printer = new Printer(dungeon, Output);
+    protected Printer printer = new Printer(dungeon, Output);
 
     // Dungeon is an example of identity. While we could create an instance
     // of dungeon in each character, by having the same instance of dungeon
