@@ -15,8 +15,9 @@ public abstract class Characters {
     protected Room Location;
 
     String name = new String("Character");
-    TreasureHunt HuntBehavior = new TreasureHunt("Character");
-    Fight FightBehavior = new Fight("Character");
+    public TreasureHunt HuntBehavior = new TreasureHunt("Character");
+    public Fight FightBehavior = new Fight("Character");
+    public Treasure CurrentTreasure;
 
     protected int HP = 3;
     protected int TreasureCount = 0;

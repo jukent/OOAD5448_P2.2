@@ -1,6 +1,7 @@
 public class Fight {
         
     protected String FightType;
+    protected Celebration Celebrate;
 
 
     /**
@@ -24,11 +25,11 @@ public class Fight {
      * This method executes the fight by rolling two dice and adding any extra strength buffs.
      */
     public int fight(){
-        if(FightType == "Character"){return DiceRolls.rollDice(6) + DiceRolls.rollDice(6);}
+        if(FightType == "Untrained"){return DiceRolls.rollDice(6) + DiceRolls.rollDice(6);}
         if(FightType == "Creature"){return DiceRolls.rollDice(6) + DiceRolls.rollDice(6);}
-        if(FightType == "Thief"){return DiceRolls.rollDice(6) + DiceRolls.rollDice(6) + 1;}
-        if(FightType == "Brawler"){return DiceRolls.rollDice(6) + DiceRolls.rollDice(6) + 2;}
-        if(FightType == "Sneaker"){
+        if(FightType == "Trained"){return DiceRolls.rollDice(6) + DiceRolls.rollDice(6) + 1;}
+        if(FightType == "Expert"){return DiceRolls.rollDice(6) + DiceRolls.rollDice(6) + 2;}
+        if(FightType == "Stealth"){
             if (DiceRolls.rollDice(2) == 1) {
                 return -1;
             }

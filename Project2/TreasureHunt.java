@@ -1,6 +1,7 @@
 public class TreasureHunt {
     
     protected String TreasureType;
+    public int NeededScore;
 
 
     /**
@@ -15,6 +16,12 @@ public class TreasureHunt {
         // class. This is just like the Strategy design pattern. 
         // "Encapsulate what varies" 
         TreasureType = Type;
+        if (TreasureType == "Careful") {
+            NeededScore = 7;}
+        if (TreasureType == "Quick") {
+            NeededScore = 9;}
+        if (TreasureType == "Careless") {
+            NeededScore = 10;}
     }
 
 
@@ -24,14 +31,13 @@ public class TreasureHunt {
      * This method searches for treasure by rolling dice.
      */
     public int searchTreasure() {
-        if (TreasureType == "Character") {
-            // Included for error prevention
-            return DiceRolls.rollDice(6) + DiceRolls.rollDice(6);
-        }
-        if (TreasureType == "Thief") {
-            return DiceRolls.rollDice(6) + DiceRolls.rollDice(6) + 1;
-        } else { 
-            return DiceRolls.rollDice(6) + DiceRolls.rollDice(6);
-        }
+        if (TreasureType == "Careful") {
+            return DiceRolls.rollDice(6) + DiceRolls.rollDice(6);}
+        if (TreasureType == "Quick") {
+            if (DiceRolls.rollDice(3)==1){return -1;}
+            else{return DiceRolls.rollDice(6) + DiceRolls.rollDice(6);}}
+        if (TreasureType == "Careless") {
+                return DiceRolls.rollDice(6) + DiceRolls.rollDice(6) + 1;}
+        else { return DiceRolls.rollDice(6) + DiceRolls.rollDice(6);}
     }
 }

@@ -6,6 +6,8 @@ public class GameEngine {
     // ArrayList that contains all characters and Creatures
     protected ArrayList<Characters> CharacterList = new ArrayList<Characters>();
     protected ArrayList<Creatures> CreatureList = new ArrayList<Creatures>();
+    protected ArrayList<Treasure> TreasureList = new ArrayList<Treasure>();
+    protected ArrayList<Subscriber> SubscriberList = new ArrayList<Subscriber>();
     private String Output = "ShowAll"; // OneScreen,ShowEnding,ShowAll
     protected Dungeon dungeon = new Dungeon(); // Example of identity
     protected Printer printer = new Printer(dungeon, Output);
@@ -82,31 +84,27 @@ public class GameEngine {
 
         // Creatures
         // Also an example of polymorphism
+        for(int i = 0; i <4; i++){
         CreatureList.add(new Seekers(ID, dungeon));
         ID++;
         CreatureList.add(new Orbiters(ID, dungeon));
         ID++;
         CreatureList.add(new Blinkers(ID, dungeon));
-        ID++;
-        CreatureList.add(new Seekers(ID, dungeon));
-        ID++;
-        CreatureList.add(new Orbiters(ID, dungeon));
-        ID++;
-        CreatureList.add(new Blinkers(ID, dungeon));
-        ID++;
-        CreatureList.add(new Seekers(ID, dungeon));
-        ID++;
-        CreatureList.add(new Orbiters(ID, dungeon));
-        ID++;
-        CreatureList.add(new Blinkers(ID, dungeon));
-        ID++;
-        CreatureList.add(new Seekers(ID, dungeon));
-        ID++;
-        CreatureList.add(new Orbiters(ID, dungeon));
-        ID++;
-        CreatureList.add(new Blinkers(ID, dungeon));
-        ID++;
+        ID++;}
 
+        for(int i = 0; i<4; i++){
+        TreasureList.add(new Sword(ID));
+        ID++;
+        TreasureList.add(new Gem(ID));
+        ID++;
+        TreasureList.add(new Armor(ID));
+        ID++;
+        TreasureList.add(new Portal(ID));
+        ID++;
+        TreasureList.add(new Trap(ID));
+        ID++;
+        TreasureList.add(new Potion(ID));
+        ID++;}
         // Tell Rooms that there are occupants.
         setOccupancy();
     }
@@ -161,15 +159,25 @@ public class GameEngine {
      * Adds to the Characters treasure count
      */
     private void simulateTreasure(Characters A) {
+        int NeededScore = A.HuntBehavior.NeededScore;
+        
         int Score = A.searchTreasure();
-        if(Score >= 10) {
+        if(Score >= NeededScore) {
             A.gainTreasure();
+            //A.CurrentTreasure;
             if (Output != "ShowNone") {
                 System.out.print("Treasure Hunt: ");
                 System.out.print(Score);
                 System.out.println(" Success!");
             }
-        } else{
+        } 
+        if(Score == -1) {
+            if (Output != "ShowNone") {
+                System.out.print("Treasure Hunt: ");
+                System.out.println("Search Skipped!");
+            }
+        } 
+        else{
             if (Output != "ShowNone") {
                 System.out.print("Treasure Hunt: ");
                 System.out.print(Score);
